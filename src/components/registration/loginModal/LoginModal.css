@@ -81,10 +81,6 @@
   cursor: pointer;
 }
 
-.login-modal button:hover {
-  background-color: #f9f9f9;
-}
-
 .login-modal .modal-footer {
   font-size: 0.9rem;
 }
