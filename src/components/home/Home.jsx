@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Header from "./shared/Header";
+import Header from "../shared/Header";
 import "./Home.css";
-import FAQ from "./FAQ";
-import LoginModal from "./registration/LoginModal";
+import FAQ from "../FAQ/FAQ";
+import LoginModal from "../registration/loginModal/LoginModal";
 
 const services = [
   {
@@ -27,10 +27,20 @@ const Home = () => {
   const [showLogin, setShowLogin] = useState(false);
 
   const handleShowLogin = () => {
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${window.scrollY}px`;
+    document.body.classList.add("body-no-scroll");
+
     setShowLogin(true);
   };
 
   const handleCloseLogin = () => {
+    const scrollY = document.body.style.top;
+    document.body.style.position = "";
+    document.body.style.top = "";
+    document.body.classList.remove("body-no-scroll");
+    window.scrollTo(0, parseInt(scrollY || "0") * -1);
+
     setShowLogin(false);
   };
 
