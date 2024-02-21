@@ -23,6 +23,7 @@ const services = [
   {
     title: "Track Health",
     description: "Save your health data to track your BMI.",
+    img: ""
   },
 ];
 
