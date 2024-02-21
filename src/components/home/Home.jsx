@@ -8,18 +8,22 @@ const services = [
   {
     title: "Book Consult",
     description: "Connect with top medical professionals for consultations.",
+    img: "bookConsult.jpeg",
   },
   {
     title: "Order Medicine",
-    description: "Get your prescriptions delivered to your doorstep.",
+    description: "Get your Medicines delivered to your doorstep.",
+    img: "/order-medicine.png",
   },
   {
     title: "Lab Test",
     description: "Book lab tests and get results online quickly.",
+    img: "/lab-test.png",
   },
   {
     title: "Track Health",
-    description: "Save your health data to keep your BMI updated.",
+    description: "Save your health data to track your BMI.",
+    img: ""
   },
 ];
 
@@ -67,6 +71,12 @@ const Home = () => {
             return (
               <div className="service" key={index}>
                 <h3 aria-label={service.title}>{service.title}</h3>
+                <img
+                  src={service.img}
+                  height={200}
+                  width={250}
+                  alt={"service-icn"}
+                />
                 <p arial-label={service.description}>{service.description}</p>
               </div>
             );

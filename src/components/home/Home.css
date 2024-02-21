@@ -40,4 +40,11 @@
     color: white;
     padding: 20px 0;
   }
+
+ .body-no-scroll {
+    overflow: hidden;
+    /* Optional: to make sure the page stays at the current scroll position */
+    position: fixed; 
+    width: 100%;
+  }
   
