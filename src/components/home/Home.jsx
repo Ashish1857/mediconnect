@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../shared/Header";
 import "./Home.css";
 import FAQ from "../FAQ/FAQ";
 import LoginModal from "../registration/loginModal/LoginModal";
+import Carousel from "react-material-ui-carousel";
 
 const services = [
   {
     title: "Book Consult",
     description: "Connect with top medical professionals for consultations.",
-    img: "bookConsult.jpeg",
+    img: "/bookConsult.jpeg",
   },
   {
     title: "Order Medicine",
@@ -23,7 +24,13 @@ const services = [
   {
     title: "Track Health",
     description: "Save your health data to track your BMI.",
-    img: ""
+    img: "/lab-test.png",
+  },
+
+  {
+    title: "Health Vault",
+    description: "Access your all prescriptions and orders.",
+    img: "/lab-test.png",
   },
 ];
 
@@ -48,6 +55,21 @@ const Home = () => {
     setShowLogin(false);
   };
 
+  const reduceRecipes = (acc, cur, index) => {
+    const groupIndex = Math.floor(index / 3);
+    if (!acc[groupIndex]) acc[groupIndex] = [];
+    acc[groupIndex].push(cur);
+    return acc;
+  };
+
+  const reducedServices = services.reduce(reduceRecipes, []);
+
+  const printItems = () => {
+    reducedServices.map((item) =>
+      item.map((item2, index) => console.log(item2, index))
+    );
+  };
+
   return (
     <div className="home-container">
       <Header handleShowLogin={handleShowLogin} />
@@ -66,22 +88,26 @@ const Home = () => {
       {/* Services Section */}
       <section className="services-section">
         <h2>Our Services</h2>
-        <div className="services-list">
-          {services.map((service, index) => {
-            return (
-              <div className="service" key={index}>
-                <h3 aria-label={service.title}>{service.title}</h3>
-                <img
-                  src={service.img}
-                  height={200}
-                  width={250}
-                  alt={"service-icn"}
-                />
-                <p arial-label={service.description}>{service.description}</p>
-              </div>
-            );
-          })}
-        </div>
+        {/* <div className="services-list"> */}
+        <Carousel>
+          {reducedServices.map((item) => (
+            <div style={{ display: "flex" }}>
+              {item.map((service, index) => (
+                <div>
+                  <h3 aria-label={service.title}>{service.title}</h3>
+                  <img
+                    src={service.img}
+                    height={200}
+                    width={250}
+                    alt={"service-icn"}
+                  />
+                  <p arial-label={service.description}>{service.description}</p>
+                </div>
+              ))}
+            </div>
+          ))}
+        </Carousel>
+        {/* </div> */}
       </section>
       <FAQ />
       <footer className="footer-section">
