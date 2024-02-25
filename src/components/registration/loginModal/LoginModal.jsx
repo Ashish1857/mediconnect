@@ -3,6 +3,7 @@ import "./LoginModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const LoginModal = ({ show, onClose }) => {
   const [mobileNumber, setMobileNumber] = useState("");
@@ -10,6 +11,7 @@ const LoginModal = ({ show, onClose }) => {
   const [currentStep, setCurrentStep] = useState("enterMobile");
   const initialOtpState = ["", "", "", "", "", ""];
   const [otpInputs, setOtpInputs] = useState(initialOtpState);
+  const [isValidNumber, setIsValidNumber] = useState(false);
 
   const handleOtpChange = (event, index) => {
     const newOtpInputs = [...otpInputs];
@@ -34,18 +36,26 @@ const LoginModal = ({ show, onClose }) => {
     setOtpInputs(initialOtpState);
   };
 
-  const onChangeMobile = (e) => {
-    console.log(e);
+  const handleOnChange = (value, country, e, formattedValue) => {
+    setMobileNumber(formattedValue);
   };
 
-  const handleMobileNumberSubmit = () => {
-    // Here you could implement validation or API call
+  const handleGetOtp = () => {
     setCurrentStep("enterOtp");
   };
 
   useEffect(() => {
-    console.log(mobileNumber);
-  }, []);
+    console.log(`Phone number for validation: ${mobileNumber}`);
+    const phoneNumber = parsePhoneNumberFromString(mobileNumber);
+
+    // Check if the phone number is valid
+    if (phoneNumber) {
+      console.log(`Is phone number valid? ${phoneNumber.isValid()}`);
+      setIsValidNumber(phoneNumber.isValid());
+    } else {
+      setIsValidNumber(false);
+    }
+  }, [mobileNumber]);
 
   if (!show) {
     return null;
@@ -54,7 +64,13 @@ const LoginModal = ({ show, onClose }) => {
   return (
     <div className="modal-backdrop">
       <div className="login-modal">
-        <button onClick={onClose} className="close-modal">
+        <button
+          onClick={() => {
+            onClose();
+            setCurrentStep("enterMobile");
+          }}
+          className="close-modal"
+        >
           <FontAwesomeIcon icon={faClose} />
         </button>
 
@@ -65,14 +81,20 @@ const LoginModal = ({ show, onClose }) => {
               <PhoneInput
                 country={"us"}
                 value={mobileNumber}
-                onChange={onChangeMobile}
+                onChange={handleOnChange}
                 inputClass="phone-input-field"
                 dropdownClass="flag-dropdown"
                 buttonClass="get-otp-button"
+                containerClass="phone-input-container"
+                inputProps={{
+                  required: true,
+                  autoFocus: true,
+                }}
               />
               <button
                 className="get-otp-button"
-                onClick={handleMobileNumberSubmit}
+                onClick={handleGetOtp}
+                disabled={!isValidNumber}
               >
                 Get OTP
               </button>
@@ -84,7 +106,6 @@ const LoginModal = ({ show, onClose }) => {
           <div className="otp-container">
             <h2>We have sent you One Time Password to your Mobile..</h2>
             <p>Please Enter OTP</p>
-            {/* Timer here if you need one */}
             <div className="otp-inputs">
               {Array.from({ length: 4 }).map((_, index) => (
                 <input
