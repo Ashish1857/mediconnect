@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Header from "../shared/Header";
 import "./Home.css";
 import FAQ from "../FAQ/FAQ";
@@ -32,11 +32,15 @@ const services = [
     description: "Access your all prescriptions and orders.",
     img: "/lab-test.png",
   },
+  {
+    title: "Order Medicine",
+    description: "Get your Medicines delivered to your doorstep.",
+    img: "/order-medicine.png",
+  },
 ];
 
 const Home = () => {
   const [showLogin, setShowLogin] = useState(false);
-
   const handleShowLogin = () => {
     document.body.style.position = "fixed";
     document.body.style.top = `-${window.scrollY}px`;
@@ -55,20 +59,14 @@ const Home = () => {
     setShowLogin(false);
   };
 
-  const reduceRecipes = (acc, cur, index) => {
+  const reduceServices = (acc, cur, index) => {
     const groupIndex = Math.floor(index / 3);
     if (!acc[groupIndex]) acc[groupIndex] = [];
     acc[groupIndex].push(cur);
     return acc;
   };
 
-  const reducedServices = services.reduce(reduceRecipes, []);
-
-  const printItems = () => {
-    reducedServices.map((item) =>
-      item.map((item2, index) => console.log(item2, index))
-    );
-  };
+  const reducedServices = services.reduce(reduceServices, []);
 
   return (
     <div className="home-container">

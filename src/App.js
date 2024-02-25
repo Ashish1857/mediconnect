@@ -1,6 +1,7 @@
 import "./App.css";
 import Home from "./components/home/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import "react-phone-input-2/lib/style.css";
 
 function App() {
   return (
