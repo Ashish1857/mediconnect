@@ -5,7 +5,6 @@ const Tabs = [
   {
     title: "Book Consult",
     isActive: false,
-    link: "/bookconsultation",
   },
   {
     title: "Order Medicine",
@@ -14,7 +13,6 @@ const Tabs = [
   {
     title: "Lab Test",
     isActive: false,
-    link: "/labtests",
   },
   {
     title: "Contact Us",
