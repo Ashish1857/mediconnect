@@ -5,22 +5,62 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
 
+// const step = {
+//   1: "enterMobile",
+//   2: "enterOtp",
+// };
+
 const LoginModal = ({ show, onClose }) => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [otp, setOtp] = useState("");
-  const [currentStep, setCurrentStep] = useState("enterMobile");
+  const [currentStep, setCurrentStep] = useState(1);
   const initialOtpState = ["", "", "", "", "", ""];
   const [otpInputs, setOtpInputs] = useState(initialOtpState);
   const [isValidNumber, setIsValidNumber] = useState(false);
+  const inputsRef = [];
+
+  // Create a ref for each input
+  for (let i = 0; i < 5; i++) {
+    inputsRef[i] = React.createRef();
+  }
 
   const handleOtpChange = (event, index) => {
-    const newOtpInputs = [...otpInputs];
-    newOtpInputs[index] = event.target.value;
-    setOtpInputs(newOtpInputs);
+    const value = event.target.value;
 
-    // Auto-focus next input after typing a digit
-    if (event.target.nextSibling && event.target.value) {
-      event.target.nextSibling.focus();
+    // Set OTP value
+    setOtpInputs((prevOtp) => {
+      const newOtp = [...prevOtp];
+      newOtp[index] = value;
+      return newOtp;
+    });
+
+    // Focus next input on value entry
+    if (value && index < 3) {
+      console.log(index);
+      inputsRef[index + 1].current.focus();
+    }
+  };
+
+  const handleKeyDown = (event, index) => {
+    if (event.key === "Backspace") {
+      // If there is a digit in the current input, delete it.
+      if (otp[index]) {
+        setOtp((prevOtp) => {
+          const newOtp = [...prevOtp];
+          newOtp[index] = "";
+          return newOtp;
+        });
+      }
+      // If the current input is already empty, delete the digit in the previous input and move the focus.
+      else if (index !== 0) {
+        setOtp((prevOtp) => {
+          const newOtp = [...prevOtp];
+          newOtp[index - 1] = "";
+          return newOtp;
+        });
+        // Move focus to previous input after state update
+        setTimeout(() => inputsRef[index - 1]?.current.focus(), 0);
+      }
     }
   };
 
@@ -41,7 +81,11 @@ const LoginModal = ({ show, onClose }) => {
   };
 
   const handleGetOtp = () => {
-    setCurrentStep("enterOtp");
+    setCurrentStep(2);
+    goToNextStep();
+  };
+  const goToNextStep = () => {
+    setCurrentStep(currentStep + 1);
   };
 
   useEffect(() => {
@@ -67,14 +111,14 @@ const LoginModal = ({ show, onClose }) => {
         <button
           onClick={() => {
             onClose();
-            setCurrentStep("enterMobile");
+            setCurrentStep(1);
           }}
           className="close-modal"
         >
           <FontAwesomeIcon icon={faClose} />
         </button>
 
-        {currentStep === "enterMobile" && (
+        {currentStep === 1 && (
           <div>
             <h2>Let's Begin...</h2>
             <div className="phone-input-container">
@@ -102,7 +146,7 @@ const LoginModal = ({ show, onClose }) => {
           </div>
         )}
 
-        {currentStep === "enterOtp" && (
+        {currentStep === 2 && (
           <div className="otp-container">
             <h2>We have sent you One Time Password to your Mobile..</h2>
             <p>Please Enter OTP</p>
@@ -115,6 +159,9 @@ const LoginModal = ({ show, onClose }) => {
                   className="otp-input"
                   onChange={(e) => handleOtpChange(e, index)}
                   onFocus={(e) => e.target.select()}
+                  value={otpInputs[index] || ""}
+                  ref={inputsRef[index]}
+                  onKeyDown={(e) => handleKeyDown(e, index)}
                 />
               ))}
             </div>
