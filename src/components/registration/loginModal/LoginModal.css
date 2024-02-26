@@ -180,11 +180,6 @@
   background-color: #595858; /* A slightly darker green for hover state */
 }
 
-
-.react-tel-input .form-control{
-  height: 45px !important;
-}
-
 .react-tel-input {
   height: 45px;
   margin-bottom: 40px;
@@ -193,4 +188,17 @@
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
+}
+
+.react-tel-input .country-list .country{
+  display: flex;
+  justify-content: space-between;
+}
+
+.country-name{
+  color: #000000;
+}
+
+.phone-input-field{
+  height: 45px !important;
 }
