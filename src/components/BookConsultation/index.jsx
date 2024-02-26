@@ -32,6 +32,14 @@ import { v4 as uuid } from "uuid";
  *                                                         B.6. Finished show the consultation confirmation details
  */
 
+const ailments = {
+  "Stomach issues": "stomach",
+  "Throat issues": "throat",
+  "Muscle pain": "muscle-pain",
+  Heartache: "heartache",
+  Other: "other",
+};
+
 const BookConsultation = () => {
   const [formValues, setFormValues] = useState({});
   const updateForm = (key, value) => {
@@ -95,11 +103,11 @@ const BookConsultation = () => {
               label="Book a consultation"
               aria-describedby="ailmenthelp"
             >
-              <MenuItem value="stomach">Stomach issues</MenuItem>
-              <MenuItem value="throat">Throat issues</MenuItem>
-              <MenuItem value="muscle-pain">Muscle pain</MenuItem>
-              <MenuItem value="heartache">Heartache</MenuItem>
-              <MenuItem value="other">Other</MenuItem>
+              {Object.entries(ailments).map(([name, value]) => (
+                <MenuItem value={value} key={name + value}>
+                  {name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormHelperText id="ailmenthelp">
@@ -141,8 +149,8 @@ const BookConsultation = () => {
                   : !formValues.ailment
               }
             >
-              <MenuItem value="asap">ASAP</MenuItem>
-              <MenuItem value="later">Want to select date and time?</MenuItem>
+              <MenuItem value="asap">Book now</MenuItem>
+              <MenuItem value="later">Book for later</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -186,32 +194,13 @@ const BookConsultation = () => {
         </Grid>
 
         <Grid item>
-          <FormControl fullWidth>
-            <InputLabel htmlFor="hospital">
-              Select from the available doctors
-            </InputLabel>
-            <Select
-              labelId="doctor"
-              disabled={!formValues.hospital}
-              onChange={(event) => updateForm("doctor", event.target.value)}
-              label="Select from the available doctors"
-            >
-              <MenuItem value="Doctor1">Doctor 1</MenuItem>
-              <MenuItem value="Doctor2">Doctor 2</MenuItem>
-              <MenuItem value="Doctor3">Doctor 3</MenuItem>
-              <MenuItem value="Doctor4">Doctor 4</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-
-        <Grid item>
           <Grid container spacing={2}>
             <Grid item xs={12} md={6}>
               <Button
                 type="button"
                 color="success"
                 variant="contained"
-                disabled={!formValues.doctor}
+                disabled={!formValues.hospital}
                 fullWidth
                 onClick={() => {
                   addToStorage(formValues);

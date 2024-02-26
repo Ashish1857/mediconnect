@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const services = [
   {
-    title: "Book Consult",
+    title: "Book Consultation",
     description: "Connect with top medical professionals for consultations.",
     link: "/bookconsultation",
   },
