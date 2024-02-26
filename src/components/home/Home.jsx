@@ -40,25 +40,6 @@ const services = [
 ];
 
 const Home = () => {
-  const [showLogin, setShowLogin] = useState(false);
-  const handleShowLogin = () => {
-    document.body.style.position = "fixed";
-    document.body.style.top = `-${window.scrollY}px`;
-    document.body.classList.add("body-no-scroll");
-
-    setShowLogin(true);
-  };
-
-  const handleCloseLogin = () => {
-    const scrollY = document.body.style.top;
-    document.body.style.position = "";
-    document.body.style.top = "";
-    document.body.classList.remove("body-no-scroll");
-    window.scrollTo(0, parseInt(scrollY || "0") * -1);
-
-    setShowLogin(false);
-  };
-
   const reduceServices = (acc, cur, index) => {
     const groupIndex = Math.floor(index / 3);
     if (!acc[groupIndex]) acc[groupIndex] = [];
@@ -70,10 +51,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <Header handleShowLogin={handleShowLogin} />
-
-      <LoginModal show={showLogin} onClose={handleCloseLogin} />
-
       {/* Welcome Section */}
       <section className="welcome-section">
         <h1 aria-label="Welcome Note">Welcome to MediConnect</h1>
@@ -88,10 +65,10 @@ const Home = () => {
         <h2>Our Services</h2>
         {/* <div className="services-list"> */}
         <Carousel>
-          {reducedServices.map((item) => (
-            <div style={{ display: "flex" }}>
+          {reducedServices.map((item, index) => (
+            <div style={{ display: "flex" }} key={index}>
               {item.map((service, index) => (
-                <div>
+                <div key={service.title}>
                   <h3 aria-label={service.title}>{service.title}</h3>
                   <img
                     src={service.img}

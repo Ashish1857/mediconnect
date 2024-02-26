@@ -1,6 +1,10 @@
 .App {
   text-align: center;
   margin: auto;
+  .navbar{
+    width: 80%;
+    margin: auto;
+  }
 }
 
 .App-logo {
