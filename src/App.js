@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
+import Home from './components/home/Home';
 import BookConsultation from "./components/BookConsultation";
 import LabTests from "./components/LabTests";
 import "react-phone-input-2/lib/style.css";
