@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Navbar from "./NavBar";
+import Navbar from "./navbar/NavBar";
 
 const Tabs = [
   {

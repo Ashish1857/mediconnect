@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 import BookConsultation from "./components/BookConsultation";
 import LabTests from "./components/LabTests";
+import "react-phone-input-2/lib/style.css";
 
 function App() {
   return (
