@@ -173,7 +173,7 @@ const BookConsultation = () => {
         <Grid item>
           <FormControl fullWidth>
             <InputLabel htmlFor="hospital">
-              Select from the available hospitals
+              Select the hospital
             </InputLabel>
             <Select
               labelId="hospital"
