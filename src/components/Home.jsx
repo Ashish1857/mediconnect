@@ -3,13 +3,11 @@ import Header from "./shared/Header";
 import "./Home.css";
 import FAQ from "./FAQ";
 import LoginModal from "./registration/LoginModal";
-import { Link } from "react-router-dom";
 
 const services = [
   {
-    title: "Book Consultation",
+    title: "Book Consult",
     description: "Connect with top medical professionals for consultations.",
-    link: "/bookconsultation",
   },
   {
     title: "Order Medicine",
@@ -56,14 +54,7 @@ const Home = () => {
         <h2>Our Services</h2>
         <div className="services-list">
           {services.map((service, index) => {
-            return service.link ? (
-              <div className="service" key={index}>
-                <Link to={service.link}>
-                  <h3 aria-label={service.title}>{service.title}</h3>
-                  <p arial-label={service.description}>{service.description}</p>
-                </Link>
-              </div>
-            ) : (
+            return (
               <div className="service" key={index}>
                 <h3 aria-label={service.title}>{service.title}</h3>
                 <p arial-label={service.description}>{service.description}</p>
