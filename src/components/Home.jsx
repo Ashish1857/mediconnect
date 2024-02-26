@@ -18,6 +18,7 @@ const services = [
   {
     title: "Lab Test",
     description: "Book lab tests and get results online quickly.",
+    link: "/labtests"
   },
   {
     title: "Track Health",
