@@ -1,8 +1,6 @@
 import "./App.css";
+import Home from "./components/home/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from './components/home/Home';
-import BookConsultation from "./components/BookConsultation";
-import LabTests from "./components/LabTests";
 import "react-phone-input-2/lib/style.css";
 
 function App() {
@@ -13,8 +11,6 @@ function App() {
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/bookconsultation" element={<BookConsultation />} />
-              <Route path="/labtests" element={<LabTests />} />
             </Routes>
           </Router>
         </div>
