@@ -202,3 +202,7 @@ button:disabled {
 .phone-input-field{
   height: 45px !important;
 }
+
+.react-tel-input .country-list{
+  height: 200px;
+}
