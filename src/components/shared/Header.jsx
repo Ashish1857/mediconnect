@@ -32,6 +32,7 @@ const Header = (props) => {
 
   return (
     <div>
+
       <Navbar Tabs={Tabs} handleShowLogin={handleShowLogin} />
     </div>
   );
