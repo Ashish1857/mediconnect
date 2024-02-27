@@ -5,10 +5,6 @@ import "react-phone-input-2/lib/style.css";
 import Header from "./components/shared/Header";
 import React, { useState } from "react";
 import LoginModal from "./components/registration/loginModal/LoginModal";
-import {Order} from "./components/orderMedicine/Order";
-import {OrderWithPres} from "./components/orderMedicine/OrderWithPres";
-import {OrderWithoutPres} from "./components/orderMedicine/OrderWithoutPres";
-
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -34,17 +30,12 @@ function App() {
     <div className="App">
       <div className="container">
         <div className="content">
-
-          <Router>
           <Header handleShowLogin={handleShowLogin} />
           <LoginModal show={showLogin} onClose={handleCloseLogin} />
+          <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/order" element={<Order />} />
-              <Route path="/orderWithPres" element={<OrderWithPres />} />
-              <Route path="/orderWithoutPres" element={<OrderWithoutPres/>} />
             </Routes>
-            
           </Router>
         </div>
       </div>
