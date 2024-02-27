@@ -1,5 +1,8 @@
 import React from "react";
 import "./NavBar.css";
+import { Link } from 'react-router-dom';
+
+
 const Navbar = (props) => {
   const { Tabs, handleShowLogin } = props;
   return (
@@ -8,12 +11,13 @@ const Navbar = (props) => {
         <img src="/logo.png" alt="MediConnect Logo" />
         <h1>MediConnect</h1>
       </div>
+      
       <nav className="navbar-navigation">
         <ul>
           {Tabs.map((tab) => (
             <>
               <li key={tab.title}>
-                <a href="#">{tab.title}</a>
+              <Link to={tab.path}>{tab.text}</Link>
               </li>
             </>
           ))}
