@@ -21,10 +21,10 @@ export const Order = () => {
                     <nav>
                         <ul>
                             <li>
-                                <Link to="/orderWithPres">Yes, help me pick medicine</Link>
+                                <Link to="/OrderWithPres">Yes, help me pick medicine</Link>
                             </li>
                             <li>
-                                <Link to="/orderWithoutPres">No, i will order myself</Link>
+                                <Link to="/OrderWithoutPres">No, i will order myself</Link>
                             </li>
                         </ul>
                     </nav>
