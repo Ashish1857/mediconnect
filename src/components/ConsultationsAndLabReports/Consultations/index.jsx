@@ -1,43 +1,38 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import ConsultationAndReportsLayout from "../shared/Layout";
+import { Grid, Typography } from "@mui/material";
+import {
+  TOP_DOCTORS,
+  THROAT_DOCTORS,
+  STOMACH_DOCTORS,
+  MUSCLE_PAIN_DOCTORS,
+  OTHER_DOCTORS,
+} from "../../../utils/constants";
 
 const Consultations = (props) => {
-  const [topOptions, setTopOptions] = useState([
-    { name: "Doctor 1", id: 1 },
-    { name: "Doctor 2", id: 2 },
-    { name: "Doctor 3", id: 3 },
-    { name: "Doctor 4", id: 4 },
-    { name: "Doctor 5", id: 5 },
-  ]);
-
-  const ailments = [
-    "Stomach",
-    "Muscle pain",
-    "Throat",
-    "Sport injury",
-    "Other",
-  ];
-
-  const handleSearchChange = (searchValue) => {
-    const newOptions = [];
-    for (let index = 1; index < 6; index++) {
-      newOptions.push({ name: `${searchValue} Doctor ${index}`, id: index });
-    }
-    setTopOptions(() => newOptions);
-  };
-
-  console.log({ topOptions });
+  const searchByOptions = ["Ailment", "Speciality", "Name", "Hospital name"];
 
   return (
-    <>
-      <ConsultationAndReportsLayout
-        searchOptions={ailments}
-        topOptions={topOptions}
-        onSearchChange={handleSearchChange}
-        optionCardKey="doctor"
-      />
-    </>
+    <Grid container alignItems="center" height="80vh">
+      <Grid item>
+        <header>
+          <Typography fontSize="2rem">Book consultations</Typography>
+        </header>
+        <br />
+        <ConsultationAndReportsLayout
+          searchOptions={searchByOptions}
+          doctorSearchOptions={[
+            ...MUSCLE_PAIN_DOCTORS,
+            ...THROAT_DOCTORS,
+            ...STOMACH_DOCTORS,
+            ...OTHER_DOCTORS,
+          ]}
+          topOptions={TOP_DOCTORS}
+          optionCardKey="doctor"
+        />
+      </Grid>
+    </Grid>
   );
 };
 
