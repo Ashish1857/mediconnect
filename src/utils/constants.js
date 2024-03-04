@@ -56,7 +56,12 @@ export const STOMACH_DOCTORS = [
     speciality: "Stomach",
     hospital: "Hospital 1",
   },
-  { name: "Stomach Doctor 4", id: 12, speciality: "Stomach", hospital: "Hospital 2"},
+  {
+    name: "Stomach Doctor 4",
+    id: 12,
+    speciality: "Stomach",
+    hospital: "Hospital 2",
+  },
 ];
 
 export const MUSCLE_PAIN_DOCTORS = [
@@ -109,6 +114,29 @@ export const OTHER_DOCTORS = [
     name: "Other Doctor 4",
     id: 20,
     speciality: "Other",
+    hospital: "Hospital 1",
+  },
+];
+
+export const LAB_TESTS = [
+  {
+    id: 1,
+    name: "Test 1",
+    hospital: "Hospital 1",
+  },
+  {
+    id: 2,
+    name: "Test 2",
+    hospital: "Hospital 1",
+  },
+  {
+    id: 3,
+    name: "Test 3",
+    hospital: "Hospital 1",
+  },
+  {
+    id: 4,
+    name: "Test 4",
     hospital: "Hospital 1",
   },
 ];

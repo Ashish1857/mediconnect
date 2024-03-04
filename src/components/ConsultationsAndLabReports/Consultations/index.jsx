@@ -14,13 +14,19 @@ const Consultations = (props) => {
   const searchByOptions = ["Ailment", "Speciality", "Name", "Hospital name"];
 
   return (
-    <Grid container alignItems="center" height="80vh">
+    <Grid
+      container
+      alignItems="center"
+      height="80vh"
+      width="80%"
+      style={{ margin: "0 auto" }}
+    >
       <Grid item>
         <header>
           <Typography fontSize="2rem">Book consultations</Typography>
         </header>
         <br />
-        <ConsultationAndReportsLayout
+        <ConsultationAndReportsLayout 
           searchOptions={searchByOptions}
           doctorSearchOptions={[
             ...MUSCLE_PAIN_DOCTORS,

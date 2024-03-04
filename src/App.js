@@ -7,6 +7,8 @@ import React, { useState } from "react";
 import LoginModal from "./components/registration/loginModal/LoginModal";
 import Consultations from "./components/ConsultationsAndLabReports/Consultations";
 import Doctors from "./components/Doctors";
+import LabReports from "./components/ConsultationsAndLabReports/LabReports";
+import BookReport from "./components/ConsultationsAndLabReports/BookReport";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -40,6 +42,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/consultations" element={<Consultations />} />
                 <Route path="/doctor/:doctorid" element={<Doctors />} />
+                <Route path="/labreports" element={<LabReports />} />
+                <Route path="/report/:reportid" element={<BookReport />} />
               </Routes>
             </div>
           </Router>

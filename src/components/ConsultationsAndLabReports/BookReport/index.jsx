@@ -6,30 +6,21 @@ import {
   Button,
   FormControl,
   Grid,
-  InputLabel,
-  MenuItem,
-  Select,
   Typography,
 } from "@mui/material";
-import {
-  TOP_DOCTORS,
-  THROAT_DOCTORS,
-  STOMACH_DOCTORS,
-  MUSCLE_PAIN_DOCTORS,
-  OTHER_DOCTORS,
-} from "../../utils/constants";
+import { LAB_TESTS } from "../../../utils/constants";
 import { Link, useParams } from "react-router-dom";
 import { Person } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { getFromStorage, updateStorage } from "./../../utils/localStorage";
 import { v4 as uuid } from "uuid";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { cloneDeep } from "lodash";
 import dayjs from "dayjs";
+import { getFromStorage, updateStorage } from "../../../utils/localStorage";
 
-const Doctors = (props) => {
+const BookReport = (props) => {
   const [formValues, setFormValues] = useState({});
   const updateForm = (key, value) => {
     setFormValues((formValues) => ({
@@ -39,39 +30,33 @@ const Doctors = (props) => {
   };
 
   const addToStorage = (value) => {
-    const consultations = getFromStorage("consultations");
+    const consultations = getFromStorage("reports");
     const consultationsCopy = cloneDeep(consultations) || [];
     const valueCopy = cloneDeep(value);
     valueCopy.bookingId = uuid();
     consultationsCopy.push(valueCopy);
     updateForm("bookingId", valueCopy.bookingId);
-    updateStorage(`consultations`, consultationsCopy);
+    updateStorage(`reports`, consultationsCopy);
   };
 
-  const ALL_DOCTORS = [
-    ...TOP_DOCTORS,
-    ...THROAT_DOCTORS,
-    ...STOMACH_DOCTORS,
-    ...MUSCLE_PAIN_DOCTORS,
-    ...OTHER_DOCTORS,
-  ];
+  const ALL_DOCTORS = [...LAB_TESTS];
   const params = useParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [doctorDetails, setDoctorDetails] = useState({});
+  const [testDetails, setTestDetails] = useState({});
   const [isFormComplete, setFormAsCompleted] = useState(false);
 
   useEffect(() => {
     if (!isLoading) {
       setIsLoading(() => true);
-      const currentDoctorDetails = ALL_DOCTORS.find(
-        ({ id }) => id === Number(params.doctorid)
+      const currentTestDetails = ALL_DOCTORS.find(
+        ({ id }) => id === Number(params.reportid)
       );
-      setDoctorDetails(() => currentDoctorDetails);
+      setTestDetails(() => currentTestDetails);
       setIsLoading(() => false);
     }
 
     return () => {
-      setDoctorDetails(() => {});
+      setTestDetails(() => {});
       setIsLoading(() => false);
     };
   }, []);
@@ -88,13 +73,17 @@ const Doctors = (props) => {
 
   if (isFormComplete) {
     return (
-      <Grid container alignItems="center" height="80vh" width="80%">
+      <Grid
+        container
+        alignItems="center"
+        height="80vh"
+        width="80%"
+        style={{ margin: "0 auto" }}
+      >
         <Grid container direction="column" rowSpacing={2}>
           <Grid item>
             <header>
-              <Typography sx={{ fontSize: "2rem" }}>
-                Consultation booked
-              </Typography>
+              <Typography sx={{ fontSize: "2rem" }}>Lab test booked</Typography>
             </header>
           </Grid>
           <Grid item>
@@ -107,11 +96,9 @@ const Doctors = (props) => {
                 alignItems="center"
                 sx={{ border: "2px solid grey", padding: "16px" }}
               >
-                <Typography>Hospital: {doctorDetails.hospital}</Typography>
-                <Typography>Doctor: {doctorDetails.name}</Typography>
-                <Typography>
-                  Date and time: {dayjs(formValues.datetime).format("llll")}
-                </Typography>
+                <Typography>Hospital: {testDetails.hospital}</Typography>
+                <Typography>Test: {testDetails.name}</Typography>
+                <Typography>Date and time: {dayjs(formValues.datetime).format("llll")}</Typography>
                 <Typography>Consultation ID: {formValues.bookingId}</Typography>
               </Box>
               <br />
@@ -152,13 +139,7 @@ const Doctors = (props) => {
               </Grid>
               <Grid item xs={9} sx={{ display: "flex", alignItems: "center" }}>
                 <Typography variant="body1" align="left">
-                  Name: Dr. {doctorDetails.name}
-                  <br />
-                  Doctor ID: {doctorDetails.id}
-                  <br />
-                  Speciality: {doctorDetails.speciality}
-                  <br />
-                  Visiting hospital: {doctorDetails.hospital}
+                  Test name: {testDetails.name}
                 </Typography>
               </Grid>
             </Grid>
@@ -169,7 +150,7 @@ const Doctors = (props) => {
                 Patient details
               </Grid>
               <Grid item xs={8} padding={2}>
-                <Typography fontSize="2rem">Book your consultation</Typography>
+                <Typography fontSize="2rem">Book your lab test</Typography>
                 <Grid
                   container
                   direction="column"
@@ -201,7 +182,7 @@ const Doctors = (props) => {
                           disabled={!formValues.datetime}
                           fullWidth
                           onClick={() => {
-                            addToStorage({ ...doctorDetails, ...formValues });
+                            addToStorage({ ...testDetails, ...formValues });
                             setFormAsCompleted(() => true);
                           }}
                         >
@@ -220,6 +201,6 @@ const Doctors = (props) => {
   );
 };
 
-Doctors.propTypes = {};
+BookReport.propTypes = {};
 
-export default Doctors;
+export default BookReport;

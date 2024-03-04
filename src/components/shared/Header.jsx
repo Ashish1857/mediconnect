@@ -15,7 +15,7 @@ const Tabs = [
   {
     title: "Lab Test",
     isActive: false,
-    path: "#",
+    path: "/labreports",
   },
   {
     title: "Contact Us",
