@@ -1,10 +1,6 @@
-import React, { useState } from "react";
-import Header from "../shared/Header";
+import React from "react";
 import "./Order.css";
-
-import LoginModal from "../registration/loginModal/LoginModal";
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { Link } from 'react-router-dom';
 
 export const Order = () => {
 
@@ -17,10 +13,10 @@ export const Order = () => {
                 <div>
                     <nav>
                         <ul>
-                            <li class="liWithEnding">
+                            <li className="liWithEnding">
                                 <Link to="/orderWithPres">Yes, help me pick medicine</Link>
                             </li>
-                            <li class="liWithEnding">
+                            <li className="liWithEnding">
                                 <Link to="/orderWithoutPres">No, i will order myself</Link>
                             </li>
                         </ul>

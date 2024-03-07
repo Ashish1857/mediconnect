@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState} from 'react';
 import { Container, Grid, Typography, Button, TextField, Box, Paper, IconButton, styled } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -101,7 +101,7 @@ export function OrderWithPres() {
               variant="outlined"
               value={prescriptionNumber}
               onChange={(e) => setPrescriptionNumber(e.target.value)}
-              margin="small"
+              margin="dense"
             />
           </Box>
           <form onSubmit={handleFormSubmit}>
@@ -115,7 +115,7 @@ export function OrderWithPres() {
                 variant="outlined"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                margin="small"
+                margin="dense"
               />
             </Box>
             <Button variant="contained" color="primary" type="submit">
