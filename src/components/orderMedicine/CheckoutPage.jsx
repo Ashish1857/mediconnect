@@ -37,7 +37,7 @@ const CheckoutPage = () => {
                 <Button onClick={() => updateQuantity(item.id, 'increase')}>+</Button>
               </Grid>
               <Grid item>
-                <Button onClick={() => removeItem(item.id)}>删除</Button>
+                <Button onClick={() => removeItem(item.id)}>Delete</Button>
               </Grid>
             </Grid>
           </CardContent>
@@ -52,6 +52,11 @@ const CheckoutPage = () => {
         </Grid>
         <Grid item>
           <BackButton />
+        </Grid>
+        <Grid item>
+          <Button component={Link} to="/orderWithoutPres" variant="contained" sx={{ bgcolor: 'lightblue', '&:hover': { bgcolor: '#add8e6' } }}>
+            Add more
+          </Button>
         </Grid>
         <Grid item>
           <Button component={Link} to="/payment" variant="contained" color="primary">

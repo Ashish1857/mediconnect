@@ -124,14 +124,13 @@ export function OrderWithPres() {
           </form>
         </Grid>
 
-        {/* 中间的"or"提示 */}
         <Grid item xs={1}>
           <Typography variant="h5" align="center">
             or
           </Typography>
         </Grid>
 
-        {/* 右边部分 - 文件上传 */}
+
         <Grid item xs={12} md={5}>
           <Typography variant="h6" gutterBottom>
             Upload document
@@ -171,7 +170,7 @@ export function OrderWithPres() {
               <Typography variant="body1">{file.name}</Typography>
               <Box sx={{ mt: 2 }}>
                 <Button variant="contained" color="primary" onClick={handleFormSubmit} sx={{ mr: 2 }}>
-                  提交
+                  Submit
                 </Button>
                 <IconButton color="error" onClick={handleFileDelete}>
                   <DeleteIcon />

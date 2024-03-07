@@ -45,7 +45,7 @@ export const OrderWithoutPres = () => {
                 <Grid item xs={6}>
                     <TextField
                         fullWidth
-                        label="搜索药品"
+                        label="search medicine"
                         variant="outlined"
                         value={searchInput}
                         onChange={handleSearchChange}
@@ -55,7 +55,7 @@ export const OrderWithoutPres = () => {
                         }}
                     />
                 </Grid>
-                <Button onClick={clearSearch} style={{ marginLeft: '10px' }}>清空搜索</Button>
+                <Button onClick={clearSearch} style={{ marginLeft: '10px' }}>Clear search</Button>
             </Grid>
             <Grid container spacing={3}>
                 {drugs.map((drug) => (
@@ -91,11 +91,11 @@ export const OrderWithoutPres = () => {
                            </Typography>
                            {!cartItems.find(item => item.id === drug.id) ? (
                                <Button size="small" color="primary" onClick={() => addToCart(drug.id)}>
-                                   添加至购物车
+                                   Add to cart
                                </Button>
                            ) : (
                                <Button size="small" color="secondary" onClick={() => removeItem(drug.id)}>
-                                   删除
+                                   Delete
                                </Button>
                            )}
                        </CardContent>

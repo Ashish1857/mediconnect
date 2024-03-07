@@ -16,7 +16,7 @@ const Navbar = (props) => {
           {Tabs.map((tab) => (
             
               <li key={tab.title}>
-              <Link to={tab.path}>{tab.text}</Link>
+              <Link to={tab.path}>{tab.title}</Link>
               </li>
           
           ))}
