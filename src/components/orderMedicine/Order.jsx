@@ -6,13 +6,10 @@ import LoginModal from "../registration/loginModal/LoginModal";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 
-import {OrderWithPres} from "./OrderWithPres";
-import {OrderWithoutPres} from "./OrderWithoutPres";
-
 export const Order = () => {
 
     return (
-        <div>
+        <div id="OrderContent">
 
 
             <h1>Do you already have a prescription?</h1>
@@ -20,10 +17,10 @@ export const Order = () => {
                 <div>
                     <nav>
                         <ul>
-                            <li>
+                            <li class="liWithEnding">
                                 <Link to="/orderWithPres">Yes, help me pick medicine</Link>
                             </li>
-                            <li>
+                            <li class="liWithEnding">
                                 <Link to="/orderWithoutPres">No, i will order myself</Link>
                             </li>
                         </ul>

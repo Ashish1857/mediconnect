@@ -8,7 +8,9 @@ import LoginModal from "./components/registration/loginModal/LoginModal";
 import {Order} from "./components/orderMedicine/Order";
 import {OrderWithPres} from "./components/orderMedicine/OrderWithPres";
 import {OrderWithoutPres} from "./components/orderMedicine/OrderWithoutPres";
-
+import CheckoutPage from './components/orderMedicine/CheckoutPage';
+import Product from './components/orderMedicine/ProductDetailPage';
+import Payment from './components/orderMedicine/PaymentPage';
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -43,6 +45,9 @@ function App() {
               <Route path="/order" element={<Order />} />
               <Route path="/orderWithPres" element={<OrderWithPres />} />
               <Route path="/orderWithoutPres" element={<OrderWithoutPres/>} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/product" element={<Product />} />
+              <Route path="/payment" element={<Payment />} />
             </Routes>
             
           </Router>
