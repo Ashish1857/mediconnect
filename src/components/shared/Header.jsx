@@ -1,28 +1,26 @@
 import React, { useState } from "react";
 import Navbar from "./navbar/NavBar";
 
-
 const Tabs = [
   {
     title: "Book Consult",
     isActive: false,
-    path: "#"
+    path: "/consultations",
   },
   {
     title: "Order Medicine",
     isActive: false,
     path: "/order",
-
   },
   {
     title: "Lab Test",
     isActive: false,
-    path: "#"
+    path: "/labreports",
   },
   {
     title: "Contact Us",
     isActive: false,
-    path: "#"
+    path: "#",
   },
 ];
 

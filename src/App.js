@@ -5,6 +5,10 @@ import "react-phone-input-2/lib/style.css";
 import Header from "./components/shared/Header";
 import React, { useState } from "react";
 import LoginModal from "./components/registration/loginModal/LoginModal";
+import Consultations from "./components/ConsultationsAndLabReports/Consultations";
+import Doctors from "./components/Doctors";
+import LabReports from "./components/ConsultationsAndLabReports/LabReports";
+import BookReport from "./components/ConsultationsAndLabReports/BookReport";
 import {Order} from "./components/orderMedicine/Order";
 import {OrderWithPres} from "./components/orderMedicine/OrderWithPres";
 import {OrderWithoutPres} from "./components/orderMedicine/OrderWithoutPres";
@@ -40,6 +44,17 @@ function App() {
           <Router>
           <Header handleShowLogin={handleShowLogin} />
           <LoginModal show={showLogin} onClose={handleCloseLogin} />
+          <Router>
+            <Header handleShowLogin={handleShowLogin} />
+            <div className="contentscreens">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/consultations" element={<Consultations />} />
+                <Route path="/doctor/:doctorid" element={<Doctors />} />
+                <Route path="/labreports" element={<LabReports />} />
+                <Route path="/report/:reportid" element={<BookReport />} />
+              </Routes>
+            </div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/order" element={<Order />} />
