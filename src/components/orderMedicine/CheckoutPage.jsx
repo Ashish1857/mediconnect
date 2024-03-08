@@ -9,7 +9,7 @@ const CheckoutPage = () => {
   const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div>
+    <div style={{ width:'80%', margin:'auto', marginTop:'5%' }}>
       {cartItems.map((item) => (
         <Card key={item.id} sx={{ display: 'flex', marginBottom: 2 , marginTop:2}}>
           <Link to={`/product?drug=${item.id}`}>

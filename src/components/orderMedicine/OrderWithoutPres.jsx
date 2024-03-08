@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Card, CardMedia, CardContent, Button, Typography, TextField } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Button, Typography, Autocomplete, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { Link } from 'react-router-dom';
 import { useCart } from './CartContext';
@@ -8,8 +8,11 @@ import BackButton from './BackButton';
 export const OrderWithoutPres = () => {
     const [drugs, setDrugs] = useState([]);
     const [originalDrugs, setOriginalDrugs] = useState([]); // Store the original drugs list
-    const [searchInput, setSearchInput] = useState('');
+
     const { cartItems, addToCart, removeItem } = useCart();
+
+    const [inputValue, setInputValue] = useState("");
+
 
     useEffect(() => {
         fetch('https://XavierDai.github.io/medicine.json')
@@ -21,88 +24,99 @@ export const OrderWithoutPres = () => {
             .catch(error => console.error('Error fetching drugs:', error));
     }, []);
 
-    const handleSearchChange = (event) => {
-        setSearchInput(event.target.value);
-    };
-
-    const handleSearchSubmit = (event) => {
-        if (event.key === 'Enter') {
-            const filtered = originalDrugs.filter(drug => 
-                drug.name.toLowerCase().includes(searchInput.toLowerCase())
-            );
-            setDrugs(filtered);
-        }
-    };
 
     const clearSearch = () => {
-        setSearchInput('');
+        setInputValue('');
         setDrugs(originalDrugs); // Reset to original drugs list
     };
-
+    const performSearch = (value) => {
+        // Filter or fetch data based on the search term
+        if (value) {
+            const filteredDrugs = originalDrugs.filter(drug =>
+                drug.name.toLowerCase().includes(value.toLowerCase())
+            );
+            setDrugs(filteredDrugs);
+        } else {
+            setDrugs(originalDrugs);
+        }
+    };
     return (
-        <div>
+        <div style={{ width: '80%', margin: 'auto' }}>
             <Grid container justifyContent="center" alignItems="center" style={{ marginBottom: '20px' }}>
-                <Grid item xs={6}>
-                    <TextField
-                        fullWidth
-                        label="search medicine"
-                        variant="outlined"
-                        value={searchInput}
-                        onChange={handleSearchChange}
-                        onKeyPress={handleSearchSubmit}
-                        InputProps={{
-                            endAdornment: <SearchIcon />,
+                <Grid item xs={12} sm={6}>
+                    <Autocomplete
+                        freeSolo
+                        inputValue={inputValue}
+                        options={drugs.map((option) => option.name)}
+                        onInputChange={(event, newInputValue) => {
+                            // Perform search on input change
+                            setInputValue(newInputValue);
+                            performSearch(newInputValue);
+                            
                         }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Search medicine"
+                                variant="outlined"
+                                fullWidth
+                            />
+                        )}
                     />
+
+
+
+
                 </Grid>
                 <Button onClick={clearSearch} style={{ marginLeft: '10px' }}>Clear search</Button>
             </Grid>
             <Grid container spacing={3}>
                 {drugs.map((drug) => (
-                   <Grid item xs={12} sm={6} md={4} key={drug.id}>
-                   <Card sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', overflow: 'hidden' }}>
-                       <Link to={`/product?drug=${drug.id}`}>
-                           <CardMedia
-                               component="img"
-                               sx={{ width: 151, flexShrink: 0 }} // 限制图片宽度，防止其撑大卡片
-                               image={drug.image_url}
-                               alt={drug.name}
-                           />
-                       </Link>
-                       <CardContent sx={{
-                           flex: '1',
-                           display: 'flex',
-                           flexDirection: 'column',
-                           alignItems: 'flex-start', // 确保内容靠左
-                           overflow: 'hidden', // 防止内容溢出
-                           '& > *': {
-                               wordBreak: 'break-word',
-                               overflowWrap: 'break-word' // 确保文本在需要时可以换行
-                           }
-                       }}>
-                           <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'left', width: '100%' }}>
-                               {drug.name}
-                           </Typography>
-                           <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left', width: '100%' }}>
-                               {drug.description}
-                           </Typography>
-                           <Typography variant="body1" color="text.primary" sx={{ textAlign: 'left', width: '100%' }}>
-                               {drug.price}
-                           </Typography>
-                           {!cartItems.find(item => item.id === drug.id) ? (
-                               <Button size="small" color="primary" onClick={() => addToCart(drug.id)}>
-                                   Add to cart
-                               </Button>
-                           ) : (
-                               <Button size="small" color="secondary" onClick={() => removeItem(drug.id)}>
-                                   Delete
-                               </Button>
-                           )}
-                       </CardContent>
+                    <Grid item xs={12} sm={6} md={6} key={drug.id}>
 
-                   </Card>
+                        <Card sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', overflow: 'hidden' }}>
+                            <Link to={`/product?drug=${drug.id}`}>
+                                <CardMedia
+                                    component="img"
+                                    sx={{ width: 151, flexShrink: 0 }} // 限制图片宽度，防止其撑大卡片
+                                    image={drug.image_url}
+                                    alt={drug.name}
+                                />
+                            </Link>
+                            <CardContent sx={{
+                                flex: '1',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start', // 确保内容靠左
+                                overflow: 'hidden', // 防止内容溢出
+                                '& > *': {
+                                    wordBreak: 'break-word',
+                                    overflowWrap: 'break-word' // 确保文本在需要时可以换行
+                                }
+                            }}>
+                                <Typography gutterBottom variant="h5" component="div" sx={{ textAlign: 'left', width: '100%' }}>
+                                    {drug.name}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'left', width: '100%' }}>
+                                    {drug.description}
+                                </Typography>
+                                <Typography variant="body1" color="text.primary" sx={{ textAlign: 'left', width: '100%' }}>
+                                    {drug.price}
+                                </Typography>
+                                {!cartItems.find(item => item.id === drug.id) ? (
+                                    <Button size="small" color="primary" onClick={() => addToCart(drug.id)}>
+                                        Add to cart
+                                    </Button>
+                                ) : (
+                                    <Button size="small" color="secondary" onClick={() => removeItem(drug.id)}>
+                                        Delete
+                                    </Button>
+                                )}
+                            </CardContent>
 
-               </Grid>
+                        </Card>
+
+                    </Grid>
                 ))}
             </Grid>
             <Grid container justifyContent="flex-end" style={{ marginTop: '20px' }}>

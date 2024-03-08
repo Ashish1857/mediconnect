@@ -33,32 +33,33 @@ const ProductDetailPage = () => {
     if (!product) return <div>Loading...</div>;
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
-    <div style={{ display: 'flex', marginBottom: '20px' }}>
-        <div style={{ flex: 3 }}>
-            <img src={product.image_url} alt={product.name} style={{ width: '100%' }} />
+        <div style={{ width: '80%', margin: 'auto' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
+                <div style={{ display: 'flex', marginBottom: '20px' }}>
+                    <div style={{ flex: 3 }}>
+                        <img src={product.image_url} alt={product.name} style={{ width: '100%' }} />
+                    </div>
+                    <div style={{ flex: 7, paddingLeft: '20px' }}>
+                        <h2 style={{ textAlign: 'left' }}>{product.name}</h2>
+                        <p style={{ textAlign: 'left' }}>{product.description}</p>
+                        <p style={{ textAlign: 'left' }}>Price: ${product.price}</p>
+                        <p style={{ textAlign: 'left' }}>Stock: {product.stock}</p>
+                        {!isInCart ? (
+                            <Button color="primary" onClick={() => addToCart(product.id)}  >
+                                Add to Cart
+                            </Button>
+                        ) : (
+                            <Button color="secondary" onClick={() => removeItem(product.id)}>
+                                Remove from Cart
+                            </Button>
+                        )}
+                    </div>
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                    <BackButton />
+                </div>
+            </div>
         </div>
-        <div style={{ flex: 7, paddingLeft: '20px' }}>
-            <h2 style={{ textAlign: 'left' }}>{product.name}</h2>
-            <p style={{ textAlign: 'left' }}>{product.description}</p>
-            <p style={{ textAlign: 'left' }}>Price: ${product.price}</p>
-            <p style={{ textAlign: 'left' }}>Stock: {product.stock}</p>
-            {!isInCart ? (
-                <Button color="primary" onClick={() => addToCart(product.id)}  >
-                    Add to Cart
-                </Button>
-            ) : (
-                <Button color="secondary" onClick={() => removeItem(product.id)}>
-                    Remove from Cart
-                </Button>
-            )}
-        </div>
-    </div>
-    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <BackButton />
-    </div>
-</div>
-
     );
 };
 

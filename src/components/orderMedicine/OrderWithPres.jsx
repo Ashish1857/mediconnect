@@ -80,6 +80,7 @@ export function OrderWithPres() {
       flexDirection: 'column',
       justifyContent: 'flex-start',
       mt: '10vh',
+      width:'80%',
     }}>
       <Typography variant="h5" component="h5" gutterBottom align="center" sx={{ mb: 4 }}>
         Please upload your prescription:
