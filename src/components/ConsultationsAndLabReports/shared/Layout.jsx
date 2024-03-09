@@ -12,7 +12,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-import { Person } from "@mui/icons-material";
+import { Person, Vaccines } from "@mui/icons-material";
 
 const ConsultationAndReportsLayout = (props) => {
   const [searchType, setSearchType] = useState(null);
@@ -44,7 +44,10 @@ const ConsultationAndReportsLayout = (props) => {
                     }
                   }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Search by" />
+                    <TextField
+                      {...params}
+                      label={"Search by name, hospital, ailment or speciality."}
+                    />
                   )}
                 />
               </Grid>
@@ -122,6 +125,9 @@ const ConsultationAndReportsLayout = (props) => {
                                       Doctor ID: {option.id}
                                     </Typography>
                                     <Typography variant="body1" align="left">
+                                      Rating: {option.rating}
+                                    </Typography>
+                                    <Typography variant="body1" align="left">
                                       Speciality: {option.speciality}
                                     </Typography>
                                     <Typography variant="body1" align="left">
@@ -138,7 +144,14 @@ const ConsultationAndReportsLayout = (props) => {
                   }
                 }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Search" />
+                  <TextField
+                    {...params}
+                    label={
+                      props.isLabtestUI
+                        ? "Search your lab test"
+                        : "Search your doctor"
+                    }
+                  />
                 )}
                 filterOptions={(options, state) => {
                   const displayOptions = options.filter((option) =>
@@ -158,7 +171,7 @@ const ConsultationAndReportsLayout = (props) => {
         <Grid container marginTop={4} justifyContent="center">
           <Grid item>
             <Typography fontSize="1.5rem">
-              {props.isLabtestUI ? "Some lab tests" : "Our top doctors"}
+              {props.isLabtestUI ? "Popular lab tests" : "Our top doctors"}
             </Typography>
           </Grid>
         </Grid>
@@ -171,71 +184,106 @@ const ConsultationAndReportsLayout = (props) => {
             justifyContent="center"
             className="linkcontent"
           >
-            {props.topOptions.map(({ name, id, speciality, hospital }) => {
-              if (props.isLabtestUI) {
+            {props.topOptions.map(
+              ({ name, id, speciality, hospital, rating }) => {
+                if (props.isLabtestUI) {
+                  return (
+                    <>
+                      <Grid item key={name} xs={12} md={6}>
+                        <Card>
+                          <ButtonBase
+                            sx={{ width: "100%", minHeight: "75px" }}
+                            onClick={() =>
+                              navigate(`/${props.optionCardKey}/${id}`)
+                            }
+                          >
+                            <CardContent
+                              sx={{ display: "flex", width: "100%" }}
+                            >
+                              <Grid
+                                item
+                                ms={3}
+                                justifyContent="center"
+                                alignItems="center"
+                              >
+                                <Avatar sx={{ bgcolor: "#05B8A3" }}>
+                                  <Vaccines />
+                                </Avatar>
+                              </Grid>
+                              <Grid
+                                item
+                                md={9}
+                                justifyContent="center"
+                                textAlign="center"
+                                alignItems="center"
+                                sx={{ padding: "0.5rem" }}
+                              >
+                                <Typography variant="body1" align="left">
+                                  Test name: {name}
+                                </Typography>
+                              </Grid>
+                            </CardContent>
+                          </ButtonBase>
+                        </Card>
+                      </Grid>
+                    </>
+                  );
+                }
                 return (
-                  <Grid item key={name} xs={12} md={3}>
+                  <Grid item key={name} xs={12} md={6}>
                     <Card>
                       <ButtonBase
-                        sx={{ display: "block", width: "100%" }}
+                        sx={{
+                          display: "block",
+                          width: "100%",
+                          minHeight: "150px",
+                        }}
                         onClick={() =>
                           navigate(`/${props.optionCardKey}/${id}`)
                         }
                       >
-                        <CardContent>{name}</CardContent>
+                        <CardContent sx={{ padding: "0 !important" }}>
+                          <Grid container spacing={1}>
+                            <Grid
+                              item
+                              xs={3}
+                              justifyContent="center"
+                              alignItems="center"
+                              display="flex"
+                            >
+                              <Avatar sx={{ bgcolor: "#05B8A3" }}>
+                                <Person />
+                              </Avatar>
+                            </Grid>
+                            <Grid item xs={9}>
+                              <Grid container>
+                                <Grid item justifyContent="flex-start">
+                                  <Typography variant="body1" align="left">
+                                    Name: Dr. {name}
+                                  </Typography>
+                                  <Typography variant="body1" align="left">
+                                    Doctor ID: {id}
+                                  </Typography>
+                                  <Typography variant="body1" align="left">
+                                    Rating: {rating}
+                                  </Typography>
+                                  <Typography variant="body1" align="left">
+                                    Speciality: {speciality}
+                                  </Typography>
+                                  <Typography variant="body1" align="left">
+                                    Visiting hospital: {hospital}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
+                            </Grid>
+                          </Grid>
+                        </CardContent>
                       </ButtonBase>
                     </Card>
                   </Grid>
                 );
               }
-              return (
-                <Grid item key={name} xs={12} md={3}>
-                  <Card>
-                    <ButtonBase
-                      sx={{
-                        display: "block",
-                        width: "100%",
-                        minHeight: "200px",
-                      }}
-                      onClick={() => navigate(`/${props.optionCardKey}/${id}`)}
-                    >
-                      <CardContent>
-                        <Grid container spacing={1}>
-                          <Grid
-                            item
-                            xs={3}
-                            justifyContent="center"
-                            alignItems="center"
-                          >
-                            <Avatar sx={{ bgcolor: "#05B8A3" }}>
-                              <Person />
-                            </Avatar>
-                          </Grid>
-                          <Grid item xs={9}>
-                            <Grid container>
-                              <Grid item justifyContent="flex-start">
-                                <Typography variant="body1" align="left">
-                                  Name: Dr. {name}
-                                </Typography>
-                                <Typography variant="body1" align="left">
-                                  Doctor ID: {id}
-                                </Typography>
-                                <Typography variant="body1" align="left">
-                                  Speciality: {speciality}
-                                </Typography>
-                                <Typography variant="body1" align="left">
-                                  Visiting hospital: {hospital}
-                                </Typography>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </Grid>
-                      </CardContent>
-                    </ButtonBase>
-                  </Card>
-                </Grid>
-              );
-            })}
+            )}
           </Grid>
         </Grid>
       </Grid>

@@ -5,7 +5,7 @@ const FAQ = () => {
     {
       question: "How do I book a consultation?",
       answer:
-        'You can book a consultation by clicking on the "Book Consult" tab.',
+        'You can book a consultation by clicking on the "Book Consultation" tab.',
     },
     {
       question: "Can I order medicine online?",

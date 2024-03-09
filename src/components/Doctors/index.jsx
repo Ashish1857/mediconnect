@@ -4,6 +4,8 @@ import {
   Avatar,
   Box,
   Button,
+  Card,
+  CardContent,
   FormControl,
   Grid,
   InputLabel,
@@ -19,7 +21,7 @@ import {
   OTHER_DOCTORS,
 } from "../../utils/constants";
 import { Link, useParams } from "react-router-dom";
-import { Person } from "@mui/icons-material";
+import { Person, Download } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -28,6 +30,8 @@ import { v4 as uuid } from "uuid";
 import { DateTimePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { cloneDeep } from "lodash";
 import dayjs from "dayjs";
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import DownloadFile from "./DownloadFile";
 
 const Doctors = (props) => {
   const [formValues, setFormValues] = useState({});
@@ -88,33 +92,76 @@ const Doctors = (props) => {
 
   if (isFormComplete) {
     return (
-      <Grid container alignItems="center" height="80vh" width="80%">
-        <Grid container direction="column" rowSpacing={2}>
+      <Grid
+        container
+        alignItems="center"
+        height="80vh"
+        width="80%"
+        style={{ margin: "0 auto" }}
+      >
+        <Grid
+          container
+          direction="column"
+          rowSpacing={4}
+          justifyContent="center"
+        >
+          <Grid item>
+            <FontAwesomeIcon size="5x" color="green" icon={faCircleCheck} />
+          </Grid>
           <Grid item>
             <header>
-              <Typography sx={{ fontSize: "2rem" }}>
-                Consultation booked
+              <Typography fontSize="2rem">
+                Your Consultation is Successfully Booked!
+              </Typography>
+              <Typography fontSize="1rem" color="GrayText">
+                If you need to change your appointment time, please contact our
+                support team.
               </Typography>
             </header>
           </Grid>
           <Grid item>
-            <FontAwesomeIcon size="5x" color="green" icon={faCircleCheck} />
-          </Grid>
-          <Grid item alignItems="center">
             <main>
-              <Box
-                textAlign="left"
-                alignItems="center"
-                sx={{ border: "2px solid grey", padding: "16px" }}
-              >
-                <Typography>Hospital: {doctorDetails.hospital}</Typography>
-                <Typography>Doctor: {doctorDetails.name}</Typography>
-                <Typography>
-                  Date and time: {dayjs(formValues.datetime).format("llll")}
-                </Typography>
-                <Typography>Consultation ID: {formValues.bookingId}</Typography>
-              </Box>
+              <Card>
+                <CardContent>
+                  <Typography>Hospital: {doctorDetails.hospital}</Typography>
+                  <Typography>Doctor: {doctorDetails.name}</Typography>
+                  <Typography>Rating: {doctorDetails.rating}</Typography>
+                  <Typography>
+                    Date and time: {dayjs(formValues.datetime).format("llll")}
+                  </Typography>
+                  <Typography>
+                    Consultation ID: {formValues.bookingId}
+                  </Typography>
+                </CardContent>
+              </Card>
               <br />
+              <br />
+              <PDFDownloadLink
+                document={<DownloadFile />}
+                fileName={`${formValues.bookingId}-consultation-confirmations.pdf`}
+              >
+                {({ blob, url, loading, error }) => {
+                  console.log({ loading });
+                  return loading ? (
+                    <Button
+                      variant="contained"
+                      startIcon={<Download />}
+                      disabled
+                      sx={{ marginRight: "1rem" }}
+                    >
+                      Loading...
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      startIcon={<Download />}
+                      sx={{ marginRight: "1rem" }}
+                    >
+                      Download confirmation receipt
+                    </Button>
+                  );
+                }}
+              </PDFDownloadLink>
               <Link to="/">
                 <Button variant="contained">Go to home</Button>
               </Link>
@@ -136,40 +183,66 @@ const Doctors = (props) => {
         style={{ margin: "0 auto" }}
       >
         <Grid item xs={12}>
+          <div style={{ margin: "1rem" }}>
+            <Typography fontSize="2rem">
+              Select date and time for your consultation
+            </Typography>
+            <Typography fontSize="1rem" color="GrayText">
+              Pick the perfect time for your health consultation with Dr.{" "}
+              {doctorDetails.name}, and let us take care of the rest.
+            </Typography>
+          </div>
           <Grid item xs={12}>
-            <Grid container sx={{ background: "#05B8A3", padding: "16px" }}>
-              <Grid item xs={3} justifyContent="center" alignItems="center">
-                <Avatar
-                  sx={{
-                    bgcolor: "#033759",
-                    width: "150px",
-                    height: "150px",
-                    margin: "0 auto",
-                  }}
-                >
-                  <Person />
-                </Avatar>
-              </Grid>
-              <Grid item xs={9} sx={{ display: "flex", alignItems: "center" }}>
-                <Typography variant="body1" align="left">
-                  Name: Dr. {doctorDetails.name}
-                  <br />
-                  Doctor ID: {doctorDetails.id}
-                  <br />
-                  Speciality: {doctorDetails.speciality}
-                  <br />
-                  Visiting hospital: {doctorDetails.hospital}
-                </Typography>
-              </Grid>
+            <Grid container>
+              <Card sx={{ width: "100%" }}>
+                <CardContent sx={{ display: "flex" }}>
+                  <Grid item xs={3} justifyContent="center" alignItems="center">
+                    <Avatar
+                      sx={{
+                        bgcolor: "#033759",
+                        width: "150px",
+                        height: "150px",
+                        margin: "0 auto",
+                      }}
+                    >
+                      <Person />
+                    </Avatar>
+                  </Grid>
+                  <Grid
+                    item
+                    xs={9}
+                    sx={{ display: "flex", alignItems: "center" }}
+                  >
+                    <Typography variant="body1" align="left">
+                      Name: Dr. {doctorDetails.name}
+                      <br />
+                      Doctor ID: {doctorDetails.id}
+                      <br />
+                      Rating: {doctorDetails.rating}
+                      <br />
+                      Speciality: {doctorDetails.speciality}
+                      <br />
+                      Visiting hospital: {doctorDetails.hospital}
+                    </Typography>
+                  </Grid>
+                </CardContent>
+              </Card>
             </Grid>
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              <Grid item xs={4} sx={{ background: "#F4F4F4" }} padding={2}>
-                Patient details
+              <Grid item xs={4} padding={2}>
+                <Typography fontSize="1.25rem">Patient details</Typography>
+                <br />
+                <Typography fontSize="1rem">
+                  Patient name: Dummy patient
+                  <br />
+                  Phone number: +1-(XXX)-XXX-XXXX
+                  <br />
+                  Email: xyz@abcd.com
+                </Typography>
               </Grid>
               <Grid item xs={8} padding={2}>
-                <Typography fontSize="2rem">Book your consultation</Typography>
                 <Grid
                   container
                   direction="column"
@@ -184,8 +257,13 @@ const Doctors = (props) => {
                           disablePast
                           label="Select a date and time of your choice"
                           onChange={(value) =>
-                            updateForm("datetime", dayjs(value).toISOString())
+                            updateForm("datetime", dayjs(value).toISOString() || null)
                           }
+                          slotProps={{
+                            actionBar: {
+                              actions: ["clear", "accept"],
+                            },
+                          }}
                         />
                       </LocalizationProvider>
                     </FormControl>
