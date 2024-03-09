@@ -14,11 +14,11 @@ const Navbar = (props) => {
       <nav className="navbar-navigation">
         <ul>
           {Tabs.map((tab) => (
-            <>
+            
               <li key={tab.title}>
-                <Link to={tab.path}>{tab.title}</Link>
+              <Link to={tab.path}>{tab.title}</Link>
               </li>
-            </>
+          
           ))}
         </ul>
       </nav>

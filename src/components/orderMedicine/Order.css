@@ -1,0 +1,31 @@
+ul {
+    list-style-type: none;
+}
+
+#OrderContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 90px);
+}
+
+li {
+    color: #2352F9;
+    margin-bottom: 10px;
+}
+
+.liWithEnding::after {
+    content: " >";
+}
+
+
+li a:link,
+li a:visited {
+    color: #2352F9;
+    text-decoration: none;
+}
+
+li a:hover{
+    text-decoration: underline;
+}

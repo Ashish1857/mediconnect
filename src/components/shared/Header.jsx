@@ -10,7 +10,7 @@ const Tabs = [
   {
     title: "Order Medicine",
     isActive: false,
-    path: "/order",
+    path: "/OrderWithoutPres",
   },
   {
     title: "Lab Test",
