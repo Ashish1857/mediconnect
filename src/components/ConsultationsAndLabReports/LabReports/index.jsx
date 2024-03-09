@@ -19,6 +19,10 @@ const Consultations = (props) => {
       <Grid item width="100%">
         <header>
           <Typography fontSize="2rem">Book your lab tests</Typography>
+          <Typography fontSize="1rem" color="GrayText">
+            Easily manage your health by booking laboratory tests with our
+            certified labs—quick, convenient, and reliable
+          </Typography>
         </header>
         <br />
         <ConsultationAndReportsLayout
