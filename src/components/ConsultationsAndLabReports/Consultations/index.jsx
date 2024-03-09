@@ -23,10 +23,17 @@ const Consultations = (props) => {
     >
       <Grid item>
         <header>
-          <Typography fontSize="2rem">Book consultations</Typography>
+          <Typography fontSize="2rem">
+            Book consultations with our doctors
+          </Typography>
+          <Typography fontSize="1rem" color="GrayText">
+            Schedule a medical appointment with ease. Browse top-rated
+            specialists, select your preferred doctor, and book a time that
+            suits your schedule, all in just a few clicks.
+          </Typography>
         </header>
         <br />
-        <ConsultationAndReportsLayout 
+        <ConsultationAndReportsLayout
           searchOptions={searchByOptions}
           doctorSearchOptions={[
             ...MUSCLE_PAIN_DOCTORS,

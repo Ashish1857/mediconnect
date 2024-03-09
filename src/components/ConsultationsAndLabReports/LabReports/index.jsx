@@ -18,7 +18,7 @@ const Consultations = (props) => {
     >
       <Grid item width="100%">
         <header>
-          <Typography fontSize="2rem">Book lab tests</Typography>
+          <Typography fontSize="2rem">Book your lab tests</Typography>
         </header>
         <br />
         <ConsultationAndReportsLayout
