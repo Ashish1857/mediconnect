@@ -7,7 +7,7 @@ import Carousel from "react-material-ui-carousel";
 
 const services = [
   {
-    title: "Book Consult",
+    title: "Book Consultation",
     description: "Connect with top medical professionals for consultations.",
     img: "/bookConsult.jpeg",
   },
@@ -66,17 +66,34 @@ const Home = () => {
         {/* <div className="services-list"> */}
         <Carousel>
           {reducedServices.map((item, index) => (
-            <div style={{ display: "flex" }} key={index}>
+            <div style={{ display: "flex", margin: 0 }} key={index}>
               {item.map((service, index) => (
-                <div key={service.title}>
-                  <h3 aria-label={service.title}>{service.title}</h3>
+                <div
+                  key={service.title}
+                  style={{ background: "white", flex: 1 }}
+                >
+                  <h3
+                    aria-label={service.title}
+                    style={{ margin: "0.5rem auto" }}
+                  >
+                    {service.title}
+                  </h3>
                   <img
                     src={service.img}
                     height={200}
                     width={250}
                     alt={"service-icn"}
                   />
-                  <p arial-label={service.description}>{service.description}</p>
+                  <p
+                    arial-label={service.description}
+                    style={{
+                      width: "80%",
+                      textAlign: "center",
+                      margin: "0.5rem auto",
+                    }}
+                  >
+                    {service.description}
+                  </p>
                 </div>
               ))}
             </div>

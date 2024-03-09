@@ -11,7 +11,7 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 // };
 
 const LoginModal = ({ show, onClose }) => {
-  const [mobileNumber, setMobileNumber] = useState("");
+  const [mobileNumber, setMobileNumber] = useState("+13527214999");
   const [otp, setOtp] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
   const initialOtpState = ["", "", "", "", "", ""];

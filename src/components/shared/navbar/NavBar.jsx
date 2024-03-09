@@ -6,10 +6,12 @@ const Navbar = (props) => {
   const { Tabs, handleShowLogin } = props;
   return (
     <header className="navbar">
-      <div className="navbar-logo">
-        <img src="/logo.png" alt="MediConnect Logo" />
-        <h1>MediConnect</h1>
-      </div>
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <div className="navbar-logo">
+          <img src="/logo.png" alt="MediConnect Logo" />
+          <h1>MediConnect</h1>
+        </div>
+      </Link>
 
       <nav className="navbar-navigation">
         <ul>

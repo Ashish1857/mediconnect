@@ -3,7 +3,7 @@ import Navbar from "./navbar/NavBar";
 
 const Tabs = [
   {
-    title: "Book Consult",
+    title: "Book Consultation",
     isActive: false,
     path: "/consultations",
   },
