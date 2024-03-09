@@ -257,8 +257,13 @@ const Doctors = (props) => {
                           disablePast
                           label="Select a date and time of your choice"
                           onChange={(value) =>
-                            updateForm("datetime", dayjs(value).toISOString())
+                            updateForm("datetime", dayjs(value).toISOString() || null)
                           }
+                          slotProps={{
+                            actionBar: {
+                              actions: ["clear", "accept"],
+                            },
+                          }}
                         />
                       </LocalizationProvider>
                     </FormControl>
