@@ -68,7 +68,10 @@ const Home = () => {
           {reducedServices.map((item, index) => (
             <div style={{ display: "flex", margin: 0 }} key={index}>
               {item.map((service, index) => (
-                <div key={service.title} style={{ background: "white", flex: 1 }}>
+                <div
+                  key={service.title}
+                  style={{ background: "white", flex: 1 }}
+                >
                   <h3
                     aria-label={service.title}
                     style={{ margin: "0.5rem auto" }}
@@ -80,7 +83,6 @@ const Home = () => {
                     height={200}
                     width={250}
                     alt={"service-icn"}
-                    style={{ border: "1px solid #000" }}
                   />
                   <p
                     arial-label={service.description}
