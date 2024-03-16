@@ -49,3 +49,6 @@
     width: 100%;
   }
   
+  .flag-dropdown.open .flag-dropdown{
+    margin-top: 44px;
+  }
