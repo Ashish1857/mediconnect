@@ -59,12 +59,22 @@ export const OrderWithoutPres = () => {
                 {drugs.map((drug) => {
                     const inCart = cartItems.find(item => item.id === drug.id);
                     return (
-                        <Grid item xs={12} sm={6} md={6} key={drug.id}>
-                            <Card sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', overflow: 'hidden' }}>
+                        <Grid item xs={6} sm={3} md={3} key={drug.id}>
+                            <Card sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                overflow: 'hidden',
+                                height: '100%',
+                                padding: '5px',
+                                border: 'none',
+                                width: 1,
+               
+                            }}>
                                 <Link to={`/product?drug=${drug.id}`}>
                                     <CardMedia
                                         component="img"
-                                        sx={{ width: 151, flexShrink: 0 }}
+                                        sx={{ width: '100%', height: 140 }}
                                         image={drug.image_url}
                                         alt={drug.name}
                                     />
@@ -74,20 +84,25 @@ export const OrderWithoutPres = () => {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     alignItems: 'flex-start',
+                                    justifyContent: 'space-between',
+                                    width: '100%',
+                                    padding: '16px',
                                 }}>
-                                    <Typography gutterBottom variant="h5">{drug.name}</Typography>
-                                    <Typography variant="body2" color="text.secondary">{drug.description}</Typography>
-                                    <Typography variant="body1">${drug.price}</Typography>
-                                    <div>
+                                    <Typography gutterBottom variant="h5" sx={{ width: '100%', textAlign: 'left', fontWeight: 'normal' }}>{drug.name}</Typography>
+                                    <Typography variant="body1" sx={{ width: '100%', textAlign: 'left', fontWeight: 'bold' }}>${drug.price}</Typography>
+                                    <div style={{ width: '100%', marginTop: '10px' }}>
                                         {inCart ? (
-                                            <>
-                                                <Button size="small" onClick={() => updateQuantity(drug.id, 'decrease')}>-</Button>
-                                                <Typography display="inline" sx={{ margin: '0 10px' }}>{inCart.quantity}</Typography>
-                                                <Button size="small" onClick={() => updateQuantity(drug.id, 'increase')}>+</Button>
-                                                <Button size="small" color="secondary" onClick={() => removeItem(drug.id)} sx={{ marginLeft: '10px' }}>Remove</Button>
-                                            </>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+                                                {/* 包裹加减按钮和数量显示在一个带边框的容器中 */}
+                                                <div style={{ display: 'flex', border: '1px solid #ccc', borderRadius: '4px', alignItems: 'center' }}>
+                                                    <Button variant="outlined" size="small" onClick={() => updateQuantity(drug.id, 'decrease')} sx={{ minWidth: '30px', border: '0px' }}>-</Button>
+                                                    <Typography display="inline" sx={{ margin: '0 1vw' }}>{inCart.quantity}</Typography>
+                                                    <Button variant="outlined" size="small" onClick={() => updateQuantity(drug.id, 'increase')} sx={{ minWidth: '30px', border: '0px' }}>+</Button>
+                                                </div>
+                                                <Button size="small" color="secondary" onClick={() => removeItem(drug.id)}>Remove</Button>
+                                            </div>
                                         ) : (
-                                            <Button size="small" color="primary" onClick={() => addToCart(drug.id, 1)}>Add to Cart</Button>
+                                            <Button size="small" color="primary" onClick={() => addToCart(drug.id, 1)} sx={{ width: '100%' }}>Add to Cart</Button>
                                         )}
                                     </div>
                                 </CardContent>
@@ -96,6 +111,10 @@ export const OrderWithoutPres = () => {
                     );
                 })}
             </Grid>
+
+
+
+
             <Grid container justifyContent="flex-end" style={{ marginTop: '20px' }}>
                 <BackButton />
                 <Button component={Link} to="/checkout" variant="contained" color="primary">Check Out</Button>
