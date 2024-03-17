@@ -1,21 +1,22 @@
-import "./App.css";
-import Home from "./components/home/Home";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import "react-phone-input-2/lib/style.css";
-import Header from "./components/shared/Header";
 import React, { useState } from "react";
-import LoginModal from "./components/registration/loginModal/LoginModal";
-import Consultations from "./components/ConsultationsAndLabReports/Consultations";
-import Doctors from "./components/Doctors";
-import LabReports from "./components/ConsultationsAndLabReports/LabReports";
+import "react-phone-input-2/lib/style.css";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import "./App.css";
 import BookReport from "./components/ConsultationsAndLabReports/BookReport";
+import Consultations from "./components/ConsultationsAndLabReports/Consultations";
+import LabReports from "./components/ConsultationsAndLabReports/LabReports";
+import Doctors from "./components/Doctors";
+import Home from "./components/home/Home";
+import CheckoutPage from "./components/orderMedicine/CheckoutPage";
 import { Order } from "./components/orderMedicine/Order";
 import { OrderWithPres } from "./components/orderMedicine/OrderWithPres";
 import { OrderWithoutPres } from "./components/orderMedicine/OrderWithoutPres";
-import CheckoutPage from "./components/orderMedicine/CheckoutPage";
-import Product from "./components/orderMedicine/ProductDetailPage";
 import Payment from "./components/orderMedicine/PaymentPage";
+import Product from "./components/orderMedicine/ProductDetailPage";
+import LoginModal from "./components/registration/loginModal/LoginModal";
+import Header from "./components/shared/Header";
 import { UserProvider } from "./context/UserContext";
+import { ContactUs } from "./components/contactUs/ContactUs";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -58,6 +59,7 @@ function App() {
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/product" element={<Product />} />
                   <Route path="/payment" element={<Payment />} />
+                  <Route path="/contactUs" element={<ContactUs />} />
                 </Routes>
               </div>
             </Router>

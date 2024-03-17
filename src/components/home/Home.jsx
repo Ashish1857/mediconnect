@@ -4,6 +4,7 @@ import "./Home.css";
 import FAQ from "../FAQ/FAQ";
 import LoginModal from "../registration/loginModal/LoginModal";
 import Carousel from "react-material-ui-carousel";
+import { useUser } from "../../context/UserContext";
 
 const services = [
   {
@@ -24,13 +25,13 @@ const services = [
   {
     title: "Track Health",
     description: "Save your health data to track your BMI.",
-    img: "/lab-test.png",
+    img: "/trackHealth.png",
   },
 
   {
     title: "Health Vault",
     description: "Access your all prescriptions and orders.",
-    img: "/lab-test.png",
+    img: "/Rx.png",
   },
   {
     title: "Order Medicine",
@@ -46,6 +47,7 @@ const Home = () => {
     acc[groupIndex].push(cur);
     return acc;
   };
+  const { user } = useUser();
 
   const reducedServices = services.reduce(reduceServices, []);
 
@@ -53,7 +55,16 @@ const Home = () => {
     <div className="home-container">
       {/* Welcome Section */}
       <section className="welcome-section">
-        <h1 aria-label="Welcome Note">Welcome to MediConnect</h1>
+        <h1 aria-label="Welcome Note" className="greeting">
+          {user ? `Hi ${user.firstName}` : ""}
+          {user && (
+            <>
+              <img height={40} width={40} src={"./hand-wave.png"} />
+              ,&nbsp;
+            </>
+          )}
+          Welcome to MediConnect
+        </h1>
         <p>
           Your health matters. Connect with the best medical professionals and
           services.

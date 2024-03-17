@@ -20,7 +20,7 @@ const Tabs = [
   {
     title: "Contact Us",
     isActive: false,
-    path: "#",
+    path: "/contactUs",
   },
 ];
 
