@@ -3,12 +3,12 @@ import Navbar from "./navbar/NavBar";
 
 const Tabs = [
   {
-    title: "Book Consultation",
+    title: "Consult",
     isActive: false,
     path: "/consultations",
   },
   {
-    title: "Order Medicine",
+    title: "Medicine",
     isActive: false,
     path: "/OrderWithoutPres",
   },

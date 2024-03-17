@@ -7,12 +7,12 @@ import Carousel from "react-material-ui-carousel";
 
 const services = [
   {
-    title: "Book Consultation",
+    title: "Consult",
     description: "Connect with top medical professionals for consultations.",
     img: "/bookConsult.jpeg",
   },
   {
-    title: "Order Medicine",
+    title: "Medicine",
     description: "Get your Medicines delivered to your doorstep.",
     img: "/order-medicine.png",
   },

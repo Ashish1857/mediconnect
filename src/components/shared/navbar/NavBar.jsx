@@ -1,9 +1,12 @@
 import React from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../context/UserContext";
+import { Avatar } from "@mui/material";
 
 const Navbar = (props) => {
   const { Tabs, handleShowLogin } = props;
+  const { user } = useUser();
   return (
     <header className="navbar">
       <Link to="/" style={{ textDecoration: "none" }}>
@@ -24,7 +27,16 @@ const Navbar = (props) => {
       </nav>
 
       <div className="navbar-login">
-        <button onClick={handleShowLogin}>Login</button>
+        {user ? (
+          <>
+            <div className="user-name">
+              {user.firstName}, {user.lastName}
+            </div>
+            <Avatar />
+          </>
+        ) : (
+          <button onClick={handleShowLogin}>Login</button>
+        )}
       </div>
     </header>
   );
