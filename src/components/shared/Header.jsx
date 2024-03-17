@@ -26,11 +26,12 @@ const Tabs = [
 
 const Header = (props) => {
   const { handleShowLogin } = props;
-  const [activeTab, setActiveTab] = useState(null);
+
+  const [tabs, setTabs] = useState(Tabs);
 
   return (
     <div>
-      <Navbar Tabs={Tabs} handleShowLogin={handleShowLogin} />
+      <Navbar tabs={tabs} setTabs={setTabs} handleShowLogin={handleShowLogin} />
     </div>
   );
 };

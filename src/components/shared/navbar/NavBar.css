@@ -67,3 +67,8 @@ align-items: center;
 .navbar-login button:hover {
   background-color: #232423;
 }
+
+.navbar-navigation .active {
+  font-weight: bold;
+  box-shadow: 0 2px 0 #000; /* This will create a shadow line under the active tab */
+}

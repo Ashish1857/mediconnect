@@ -16,7 +16,7 @@ import Product from "./components/orderMedicine/ProductDetailPage";
 import LoginModal from "./components/registration/loginModal/LoginModal";
 import Header from "./components/shared/Header";
 import { UserProvider } from "./context/UserContext";
-import { ContactUs } from "./components/contactUs/ContactUs";
+import { ContactUs } from "./components/reachout/Reachout";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
