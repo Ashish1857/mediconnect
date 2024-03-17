@@ -112,11 +112,7 @@ const CheckoutPage = () => {
           <BackButton />
         </Grid>
         <Grid item>
-          <Button
-            component={Link}
-            to="/orderWithoutPres"
-            variant="outlined"
-          >
+          <Button component={Link} to="/medicine" variant="outlined">
             Add more
           </Button>
         </Grid>

@@ -54,10 +54,7 @@ function App() {
                   <Route path="/report/:reportid" element={<BookReport />} />
                   <Route path="/order" element={<Order />} />
                   <Route path="/orderWithPres" element={<OrderWithPres />} />
-                  <Route
-                    path="/orderWithoutPres"
-                    element={<OrderWithoutPres />}
-                  />
+                  <Route path="/medicine" element={<OrderWithoutPres />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/product" element={<Product />} />
                   <Route path="/payment" element={<Payment />} />

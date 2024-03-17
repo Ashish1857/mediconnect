@@ -209,6 +209,18 @@ const SignUpForm = ({ mobileNumber }) => {
         }}
       />
       <TextField
+        label="Email"
+        name="email"
+        value={userDetails.email}
+        variant="outlined"
+        margin="normal"
+        fullWidth
+        sx={{ marginTop: 2 }}
+        InputProps={{
+          readOnly: true,
+        }}
+      />
+      <TextField
         label="Age"
         name="age"
         value={userDetails.age}
@@ -228,6 +240,7 @@ const SignUpForm = ({ mobileNumber }) => {
         margin="normal"
         fullWidth
         required
+        placeholder={"Height (cm)"}
       />
       <TextField
         label="Weight"
@@ -238,6 +251,7 @@ const SignUpForm = ({ mobileNumber }) => {
         margin="normal"
         fullWidth
         required
+        placeholder="Weight (Kg)"
       />
       <FormControl variant="outlined" margin="normal" fullWidth>
         <InputLabel>Blood Group</InputLabel>
@@ -251,9 +265,15 @@ const SignUpForm = ({ mobileNumber }) => {
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
+          {["A+", "A-", "B+", "B-", "AB+", "AB-", "O-", "O+"].map(
+            (bloodGroup) => (
+              <MenuItem key={bloodGroup} value={bloodGroup}>
+                {bloodGroup}
+              </MenuItem>
+            )
+          )}
           <MenuItem value="A+">A+</MenuItem>
           <MenuItem value="A-">A-</MenuItem>
-          {/* ... other blood groups ... */}
         </Select>
       </FormControl>
       <Button
