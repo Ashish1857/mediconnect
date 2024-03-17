@@ -72,3 +72,8 @@ align-items: center;
   font-weight: bold;
   box-shadow: 0 2px 0 #000; /* This will create a shadow line under the active tab */
 }
+.user-name-wrapper{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
