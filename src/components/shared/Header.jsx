@@ -3,14 +3,14 @@ import Navbar from "./navbar/NavBar";
 
 const Tabs = [
   {
-    title: "Book Consultation",
+    title: "Consult",
     isActive: false,
     path: "/consultations",
   },
   {
-    title: "Order Medicine",
+    title: "Medicine",
     isActive: false,
-    path: "/OrderWithoutPres",
+    path: "/medicine",
   },
   {
     title: "Lab Test",
@@ -20,17 +20,18 @@ const Tabs = [
   {
     title: "Contact Us",
     isActive: false,
-    path: "#",
+    path: "/contactUs",
   },
 ];
 
 const Header = (props) => {
   const { handleShowLogin } = props;
-  const [activeTab, setActiveTab] = useState(null);
+
+  const [tabs, setTabs] = useState(Tabs);
 
   return (
     <div>
-      <Navbar Tabs={Tabs} handleShowLogin={handleShowLogin} />
+      <Navbar tabs={tabs} setTabs={setTabs} handleShowLogin={handleShowLogin} />
     </div>
   );
 };

@@ -1,12 +1,25 @@
 import React from "react";
 import "./NavBar.css";
 import { Link } from "react-router-dom";
+import { useUser } from "../../../context/UserContext";
+import { Avatar } from "@mui/material";
 
 const Navbar = (props) => {
-  const { Tabs, handleShowLogin } = props;
+  const { tabs, handleShowLogin, setTabs } = props;
+  const { user } = useUser();
   return (
     <header className="navbar">
-      <Link to="/" style={{ textDecoration: "none" }}>
+      <Link
+        to="/"
+        style={{ textDecoration: "none" }}
+        onClick={() => {
+          let newTabs = tabs.map((tabdata) => {
+            tabdata.isActive = false;
+            return tabdata;
+          });
+          setTabs(newTabs);
+        }}
+      >
         <div className="navbar-logo">
           <img src="/logo.png" alt="MediConnect Logo" />
           <h1>MediConnect</h1>
@@ -15,18 +28,41 @@ const Navbar = (props) => {
 
       <nav className="navbar-navigation">
         <ul>
-          {Tabs.map((tab) => (
-            
-              <li key={tab.title}>
-              <Link to={tab.path}>{tab.title}</Link>
+          {Array.isArray(tabs) &&
+            tabs.map((tab) => (
+              <li key={tab.title} className={tab.isActive ? "active" : ""}>
+                <Link
+                  to={tab.path}
+                  onClick={() => {
+                    let newTabs = tabs.map((tabdata) => {
+                      if (tabdata.title === tab.title) {
+                        tabdata.isActive = true;
+                      } else {
+                        tabdata.isActive = false;
+                      }
+                      return tabdata;
+                    });
+                    setTabs(newTabs);
+                  }}
+                >
+                  {tab.title}
+                </Link>
               </li>
-          
-          ))}
+            ))}
         </ul>
       </nav>
 
       <div className="navbar-login">
-        <button onClick={handleShowLogin}>Login</button>
+        {user ? (
+          <>
+            <div className="user-name">
+              {user.firstName}, {user.lastName}
+            </div>
+            <Avatar />
+          </>
+        ) : (
+          <button onClick={handleShowLogin}>Login</button>
+        )}
       </div>
     </header>
   );

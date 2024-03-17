@@ -52,3 +52,6 @@
   .flag-dropdown.open .flag-dropdown{
     margin-top: 44px;
   }
+  .greeting{
+    font-size: 40px;
+  }
