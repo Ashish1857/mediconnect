@@ -83,14 +83,15 @@ const LoginModal = ({ show, onClose }) => {
     setIsLoading(true);
     if (otpInputs.join("") === "123456") {
       setIsUserAuthenticated(true);
-      let isRegistered = isRegisteredUser(mobileNumber);
-      if (isRegistered) {
-        setIsUserAuthenticated(isRegistered);
-        localStorage.setItem("mobileNumber", mobileNumber);
-        onClose();
-      } else {
-        setShowSignUp(true);
-      }
+      isRegisteredUser(mobileNumber).then((user) => {
+        if (!user.error) {
+          localStorage.setItem("mobileNumber", mobileNumber);
+          window.location.reload();
+          onClose();
+        } else {
+          setShowSignUp(true);
+        }
+      });
       setIsLoading(false);
     } else {
       // OTP is incorrect - handle error

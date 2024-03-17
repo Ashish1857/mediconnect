@@ -1,7 +1,18 @@
 const baseUrl = "http://localhost:3004/api"; // Use your backend's URL
 
+const getRawMobileNumber = (mobileNumber) => {
+  return (
+    mobileNumber
+      ?.replaceAll(" ", "")
+      ?.replaceAll("(", "")
+      ?.replaceAll(")", "")
+      ?.replaceAll("-", "") || null
+  );
+};
+
 export const signUpUser = async (userData) => {
   try {
+    userData.mobile = getRawMobileNumber(userData.mobile);
     const response = await fetch(`${baseUrl}/users/signup`, {
       method: "POST",
       headers: {
@@ -18,11 +29,7 @@ export const signUpUser = async (userData) => {
 
 export const isRegisteredUser = async (mobileNumber) => {
   try {
-    mobileNumber = mobileNumber
-      .replaceAll(" ", "")
-      .replaceAll("(", "")
-      .replaceAll(")", "")
-      .replaceAll("-", "");
+    mobileNumber = getRawMobileNumber(mobileNumber);
     const response = await fetch(`${baseUrl}/users/${mobileNumber}`, {
       method: "GET",
       headers: {

@@ -19,7 +19,8 @@ router.get("/:mobile", async (req, res) => {
     console.log("hitting");
     console.log(req.params);
     const user = await User.findOne({ mobile: req.params.mobile });
-    if (!user) return res.status(404).json({ message: "User not found" });
+    if (!user)
+      return res.status(200).json({ message: "User not found", error: 404 });
     res.json(user);
   } catch (error) {
     res.status(500).json({ message: error.message });

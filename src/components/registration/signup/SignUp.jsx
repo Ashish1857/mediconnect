@@ -95,7 +95,12 @@ const SignUpForm = ({ mobileNumber }) => {
     };
     // Do sign up (e.g., send data to an API)
     console.log("Signed up user:", user);
-    signUpUser(user);
+    signUpUser(user).then((user) => {
+      if (user?._id) {
+        localStorage.setItem("mobileNumber", mobileNumber);
+      }
+      setTimeout(() => window.location.reload());
+    });
     // Close modal and set user as logged in
   };
 
@@ -171,7 +176,7 @@ const SignUpForm = ({ mobileNumber }) => {
       </ImageUploadContainer>
       <TextField
         label="First Name"
-        name="name"
+        name="firstName"
         value={userDetails.firstName}
         onChange={handleChange}
         variant="outlined"
@@ -181,8 +186,8 @@ const SignUpForm = ({ mobileNumber }) => {
         required
       />
       <TextField
-        label="Full Name"
-        name="name"
+        label="Last Name"
+        name="lastName"
         value={userDetails.lastName}
         onChange={handleChange}
         variant="outlined"
