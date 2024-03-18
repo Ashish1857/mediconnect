@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Grid, Button } from '@mui/material';
+import { Grid, Card, CardMedia, CardContent, Button, Typography, Autocomplete, TextField } from '@mui/material';
 import BackButton from './BackButton';
-import { useCart } from './CartContext'; // Ensure this path matches your project structure
-
-// Import statements remain the same
+import { useCart } from './CartContext';
 
 const ProductDetailPage = () => {
-    const { addToCart, removeItem, cartItems } = useCart();
+    const { cartItems, addToCart, removeItem, updateQuantity } = useCart();
     const location = useLocation();
     const [product, setProduct] = useState(null);
+    const [quantity, setQuantity] = useState(1);
 
+    const [drugs, setDrugs] = useState([]);
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search);
         const drugId = queryParams.get('drug');
@@ -19,7 +19,7 @@ const ProductDetailPage = () => {
                 const response = await fetch('https://XavierDai.github.io/medicine.json');
                 const data = await response.json();
                 const matchingProduct = data.find(product => product.id.toString() === drugId);
-                setProduct(matchingProduct);
+                setDrugs(matchingProduct);
             } catch (error) {
                 console.error('Failed to fetch product data:', error);
             }
@@ -27,38 +27,62 @@ const ProductDetailPage = () => {
         fetchProductData();
     }, [location]);
 
-    // Determines if the product is in the cart
-    const isInCart = product && cartItems.some(item => item.id === product.id);
+    const handleAddToCart = () => {
+        addToCart(product.id, quantity);
+    };
 
-    if (!product) return <div>Loading...</div>;
+    const handleQuantityChange = (type) => {
+        if (type === 'increase') {
+            setQuantity(quantity + 1);
+        } else if (type === 'decrease' && quantity > 1) {
+            setQuantity(quantity - 1);
+        }
+    };
 
+
+    const inCart = cartItems.find(item => item.id === drugs.id);
     return (
         <div style={{ width: '80%', margin: 'auto' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', margin: '20px' }}>
-                <div style={{ display: 'flex', marginBottom: '20px' }}>
-                    <div style={{ flex: 3 }}>
-                        <img src={product.image_url} alt={product.name} style={{ width: '100%' }} />
-                    </div>
-                    <div style={{ flex: 7, paddingLeft: '20px' }}>
-                        <h2 style={{ textAlign: 'left' }}>{product.name}</h2>
-                        <p style={{ textAlign: 'left' }}>{product.description}</p>
-                        <p style={{ textAlign: 'left' }}>Price: ${product.price}</p>
-                        <p style={{ textAlign: 'left' }}>Stock: {product.stock}</p>
-                        {!isInCart ? (
-                            <Button color="primary" onClick={() => addToCart(product.id)}  >
-                                Add to Cart
-                            </Button>
+        <Grid item xs={12} sm={6} md={6} key={drugs.id}>
+
+   
+                    <CardMedia
+                        component="img"
+                        sx={{ width: '25%', flexShrink: 0 }}
+                        image={drugs.image_url}
+                        alt={drugs.name}
+                    />
+       
+                <CardContent sx={{
+                    flex: '1',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start',
+                }}>
+                    <Typography gutterBottom variant="h5">{drugs.name}</Typography>
+                    <Typography variant="body2" color="text.secondary">{drugs.description}</Typography>
+                    <Typography variant="body1">${drugs.price}</Typography>
+                    <div>
+                        {inCart ? (
+                            <>
+                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'decrease')}>-</Button>
+                                <Typography display="inline" sx={{ margin: '0 10px' }}>{inCart.quantity}</Typography>
+                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'increase')}>+</Button>
+                                <Button size="small" color="secondary" onClick={() => removeItem(drugs.id)} sx={{ marginLeft: '10px' }}>Remove</Button>
+                            </>
                         ) : (
-                            <Button color="secondary" onClick={() => removeItem(product.id)}>
-                                Remove from Cart
-                            </Button>
+                            <Button size="small" color="primary" onClick={() => addToCart(drugs.id, 1)}>Add to Cart</Button>
                         )}
                     </div>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                    <BackButton />
-                </div>
-            </div>
+                </CardContent>
+                <BackButton />
+        </Grid>
+
+
+
+
+
+
         </div>
     );
 };

@@ -45,6 +45,12 @@
   font-size: 16px !important;
 }
 
+.navbar-login{
+display: flex;
+align-items: center;
+
+}
+
 .navbar-login button {
   background-color: #333333;
   color: white;
@@ -54,6 +60,20 @@
   font-size: 16px;
 }
 
+.user-name {
+  margin-right: 20px;
+}
+
 .navbar-login button:hover {
   background-color: #232423;
+}
+
+.navbar-navigation .active {
+  font-weight: bold;
+  box-shadow: 0 2px 0 #000; /* This will create a shadow line under the active tab */
+}
+.user-name-wrapper{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
 }

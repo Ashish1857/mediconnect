@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./LoginModal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClose } from "@fortawesome/free-solid-svg-icons";
 import PhoneInput from "react-phone-input-2";
 import { parsePhoneNumberFromString } from "libphonenumber-js";
-
+import CircularProgress from "@mui/material/CircularProgress";
+import SignUpForm from "../signup/SignUp";
+import { isRegisteredUser } from "../../../utils/api";
 // const step = {
 //   1: "enterMobile",
 //   2: "enterOtp",
@@ -12,54 +14,43 @@ import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 const LoginModal = ({ show, onClose }) => {
   const [mobileNumber, setMobileNumber] = useState("");
-  const [otp, setOtp] = useState("");
   const [currentStep, setCurrentStep] = useState(1);
+  const [isValidNumber, setIsValidNumber] = useState(false);
+
   const initialOtpState = ["", "", "", "", "", ""];
   const [otpInputs, setOtpInputs] = useState(initialOtpState);
-  const [isValidNumber, setIsValidNumber] = useState(false);
-  const inputsRef = [];
+  const inputsRef = useRef(initialOtpState.map(() => React.createRef()));
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const userLocalStorageKey = "userMobileNumber";
 
   // Create a ref for each input
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 7; i++) {
     inputsRef[i] = React.createRef();
   }
 
   const handleOtpChange = (event, index) => {
-    const value = event.target.value;
-
-    // Set OTP value
-    setOtpInputs((prevOtp) => {
-      const newOtp = [...prevOtp];
-      newOtp[index] = value;
-      return newOtp;
-    });
+    const newOtpInputs = [...otpInputs];
+    newOtpInputs[index] = event.target.value;
+    setOtpInputs(newOtpInputs);
 
     // Focus next input on value entry
-    if (value && index < 3) {
-      console.log(index);
-      inputsRef[index + 1].current.focus();
+    if (event.target.value && index < 6) {
+      inputsRef.current[index + 1]?.focus();
     }
   };
 
   const handleKeyDown = (event, index) => {
     if (event.key === "Backspace") {
-      // If there is a digit in the current input, delete it.
-      if (otp[index]) {
-        setOtp((prevOtp) => {
-          const newOtp = [...prevOtp];
-          newOtp[index] = "";
-          return newOtp;
-        });
-      }
-      // If the current input is already empty, delete the digit in the previous input and move the focus.
-      else if (index !== 0) {
-        setOtp((prevOtp) => {
-          const newOtp = [...prevOtp];
-          newOtp[index - 1] = "";
-          return newOtp;
-        });
-        // Move focus to previous input after state update
-        setTimeout(() => inputsRef[index - 1]?.current.focus(), 0);
+      if (otpInputs[index]) {
+        // Clear the current input
+        handleOtpChange({ target: { value: "" } }, index);
+      } else if (index > 0) {
+        // Clear the previous input and move focus
+        handleOtpChange({ target: { value: "" } }, index - 1);
+        inputsRef.current[index - 1].focus();
       }
     }
   };
@@ -86,6 +77,25 @@ const LoginModal = ({ show, onClose }) => {
   };
   const goToNextStep = () => {
     setCurrentStep(currentStep + 1);
+  };
+
+  const verifyOtp = () => {
+    setIsLoading(true);
+    if (otpInputs.join("") === "123456") {
+      setIsUserAuthenticated(true);
+      isRegisteredUser(mobileNumber).then((user) => {
+        if (!user.error) {
+          localStorage.setItem("mobileNumber", mobileNumber);
+          window.location.reload();
+          onClose();
+        } else {
+          setShowSignUp(true);
+        }
+      });
+      setIsLoading(false);
+    } else {
+      // OTP is incorrect - handle error
+    }
   };
 
   useEffect(() => {
@@ -148,31 +158,50 @@ const LoginModal = ({ show, onClose }) => {
 
         {currentStep === 2 && (
           <div className="otp-container">
-            <h2>We have sent you One Time Password to your Mobile..</h2>
-            <p>Please Enter OTP</p>
-            <div className="otp-inputs">
-              {Array.from({ length: 4 }).map((_, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  maxLength="1"
-                  className="otp-input"
-                  onChange={(e) => handleOtpChange(e, index)}
-                  onFocus={(e) => e.target.select()}
-                  value={otpInputs[index] || ""}
-                  ref={inputsRef[index]}
-                  onKeyDown={(e) => handleKeyDown(e, index)}
-                />
-              ))}
-            </div>
-            <div className="otp-actions">
-              <button className="otp-button" onClick={handleResendOtp}>
-                Resend OTP
-              </button>
-              <button className="otp-button" onClick={handleOtpSubmit}>
-                Verify OTP
-              </button>
-            </div>
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {!showSignUp && (
+                  <>
+                    <h2>We have sent you One Time Password to your Mobile..</h2>
+                    <p>Please Enter OTP</p>
+                    <div className="otp-inputs">
+                      {otpInputs.map((_, index) => (
+                        <input
+                          key={index}
+                          type="text"
+                          maxLength="1"
+                          className="otp-input"
+                          value={otpInputs[index]}
+                          onChange={(e) => handleOtpChange(e, index)}
+                          onKeyDown={(e) => handleKeyDown(e, index)}
+                          ref={(el) => (inputsRef.current[index] = el)} // Assign refs dynamically
+                        />
+                      ))}
+                    </div>
+                    {!isLoading && !showSignUp && (
+                      <div className="otp-actions">
+                        <button
+                          className="otp-button"
+                          onClick={handleResendOtp}
+                        >
+                          Resend OTP
+                        </button>
+                        <button className="otp-button" onClick={verifyOtp}>
+                          Verify OTP
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
+                {showSignUp && (
+                  <div>
+                    <SignUpForm mobileNumber={mobileNumber} />
+                  </div>
+                )}
+              </>
+            )}
           </div>
         )}
       </div>
