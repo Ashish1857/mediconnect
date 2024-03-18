@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Grid, Card, CardMedia, CardContent, Button, Typography, Autocomplete, TextField } from '@mui/material';
+import { Grid, CardMedia, CardContent, Button, Typography } from '@mui/material';
 import BackButton from './BackButton';
 import { useCart } from './CartContext';
 
 const ProductDetailPage = () => {
     const { cartItems, addToCart, removeItem, updateQuantity } = useCart();
     const location = useLocation();
-    const [product, setProduct] = useState(null);
-    const [quantity, setQuantity] = useState(1);
+
 
     const [drugs, setDrugs] = useState([]);
     useEffect(() => {
@@ -26,18 +25,6 @@ const ProductDetailPage = () => {
         };
         fetchProductData();
     }, [location]);
-
-    const handleAddToCart = () => {
-        addToCart(product.id, quantity);
-    };
-
-    const handleQuantityChange = (type) => {
-        if (type === 'increase') {
-            setQuantity(quantity + 1);
-        } else if (type === 'decrease' && quantity > 1) {
-            setQuantity(quantity - 1);
-        }
-    };
 
 
     const inCart = cartItems.find(item => item.id === drugs.id);

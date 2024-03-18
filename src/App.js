@@ -9,7 +9,6 @@ import Doctors from "./components/Doctors";
 import Home from "./components/home/Home";
 import CheckoutPage from "./components/orderMedicine/CheckoutPage";
 import { Order } from "./components/orderMedicine/Order";
-import { OrderWithPres } from "./components/orderMedicine/OrderWithPres";
 import { OrderWithoutPres } from "./components/orderMedicine/OrderWithoutPres";
 import Payment from "./components/orderMedicine/PaymentPage";
 import Product from "./components/orderMedicine/ProductDetailPage";
