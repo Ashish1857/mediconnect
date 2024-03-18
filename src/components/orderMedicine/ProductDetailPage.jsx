@@ -43,31 +43,32 @@ const ProductDetailPage = () => {
     const inCart = cartItems.find(item => item.id === drugs.id);
     return (
         <div style={{ width: '80%', margin: 'auto' }}>
-        <Grid item xs={12} sm={6} md={6} key={drugs.id}>
+             <Grid container spacing={2}>
 
-   
-                    <CardMedia
-                        component="img"
-                        sx={{ width: '25%', flexShrink: 0 }}
-                        image={drugs.image_url}
-                        alt={drugs.name}
-                    />
-       
+             <Grid item xs={12} sm={4}>
+                <CardMedia
+                    component="img"
+                    sx={{ width: '100%', flexShrink: 0 }}
+                    image={drugs.image_url}
+                    alt={drugs.name}
+                />
+                </Grid>
+                <Grid item xs={12} sm={8}>
                 <CardContent sx={{
                     flex: '1',
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'flex-start',
                 }}>
-                    <Typography gutterBottom variant="h5">{drugs.name}</Typography>
-                    <Typography variant="body2" color="text.secondary">{drugs.description}</Typography>
-                    <Typography variant="body1">${drugs.price}</Typography>
+                    <Typography gutterBottom variant="h5" sx={{ mb:'4vh'}}>{drugs.name}</Typography>
+                    <Typography variant="body2" color="text.secondary"  sx={{ mb:'1vh'}}>{drugs.description}</Typography>
+                    <Typography variant="body1"  sx={{ mb:'1vh'}}>${drugs.price}</Typography>
                     <div>
                         {inCart ? (
                             <>
-                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'decrease')}>-</Button>
+                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'decrease')} sx={{ minWidth: '30px'}}>-</Button>
                                 <Typography display="inline" sx={{ margin: '0 10px' }}>{inCart.quantity}</Typography>
-                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'increase')}>+</Button>
+                                <Button size="small" onClick={() => updateQuantity(drugs.id, 'increase')} sx={{ minWidth: '30px' }}>+</Button>
                                 <Button size="small" color="secondary" onClick={() => removeItem(drugs.id)} sx={{ marginLeft: '10px' }}>Remove</Button>
                             </>
                         ) : (
@@ -75,9 +76,10 @@ const ProductDetailPage = () => {
                         )}
                     </div>
                 </CardContent>
-                <BackButton />
-        </Grid>
-
+                
+                </Grid>
+            </Grid>
+            <BackButton />
 
 
 

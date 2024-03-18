@@ -71,7 +71,7 @@ const CheckoutPage = () => {
           <BackButton />
         </Grid>
         <Grid item>
-          <Button component={Link} to="/orderWithoutPres" variant="contained" sx={{ bgcolor: 'lightblue', '&:hover': { bgcolor: '#add8e6' } }}>
+          <Button component={Link} to="/medicine" variant="contained" sx={{ bgcolor: 'lightblue', '&:hover': { bgcolor: '#add8e6' } }}>
             Add more
           </Button>
         </Grid>
