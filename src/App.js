@@ -9,6 +9,7 @@ import Doctors from "./components/Doctors";
 import Home from "./components/home/Home";
 import CheckoutPage from "./components/orderMedicine/CheckoutPage";
 import { Order } from "./components/orderMedicine/Order";
+import { OrderSuccess } from "./components/orderMedicine/OrderSuccess";
 import { OrderWithoutPres } from "./components/orderMedicine/OrderWithoutPres";
 import Payment from "./components/orderMedicine/PaymentPage";
 import Product from "./components/orderMedicine/ProductDetailPage";
@@ -16,6 +17,7 @@ import LoginModal from "./components/registration/loginModal/LoginModal";
 import Header from "./components/shared/Header";
 import { UserProvider } from "./context/UserContext";
 import { ContactUs } from "./components/reachout/Reachout";
+import { HealthVault } from "./components/orderMedicine/HealthVault";
 
 function App() {
   const [showLogin, setShowLogin] = useState(false);
@@ -58,6 +60,8 @@ function App() {
                   <Route path="/product" element={<Product />} />
                   <Route path="/payment" element={<Payment />} />
                   <Route path="/contactUs" element={<ContactUs />} />
+                  <Route path="/orderSuccess" element={<OrderSuccess />} />
+                  <Route path="/healthVault" element={<HealthVault />} />
                 </Routes>
               </div>
             </Router>

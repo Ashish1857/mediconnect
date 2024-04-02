@@ -3,12 +3,19 @@ import { Box, Grid, Typography, TextField, Button, IconButton, Paper, Divider, s
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useCart } from './CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const Input = styled('input')({
     display: 'none',
 });
 
+function formatMobileNumber(mobileNumber) {
+
+    return mobileNumber.replace(/\D/g, '');
+}
+
 const CheckoutPage = () => {
+    const navigate = useNavigate();
     const { cartItems } = useCart();
     const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     const tax = (totalPrice * 0.1).toFixed(2);
@@ -39,13 +46,51 @@ const CheckoutPage = () => {
         setFile(null);
     };
 
-    const handleSubmit = (event) => {
+
+
+    const handleSubmit = async (event) => {
+        alert(localStorage.getItem('mobileNumber'));
         event.preventDefault();
-        alert('Payment information and address submitted.');
-    };
+        const mobileNumber = formatMobileNumber(localStorage.getItem('mobileNumber'));
+        const formData = new FormData();
+        if (file) formData.append('file', file);
+        formData.append('firstName', firstName);
+        formData.append('lastName', lastName);
+        // Append other form fields as needed
+        formData.append('addressLine1', addressLine1);
+        formData.append('addressLine2', addressLine2);
+        formData.append('city', city);
+        formData.append('state', state);
+        formData.append('zipCode', zipCode);
+        formData.append('country', country);
+        formData.append('cardHolder', cardHolder);
+        formData.append('cardNumber', cardNumber);
+        formData.append('expiry', expiry);
+        formData.append('cvv', cvv);
+        formData.append('mobileNumber', mobileNumber);
+    
+        try {
+            const response = await fetch('http://localhost:3001/upload', {
+              method: 'POST',
+              body: formData,
+            });
+            const result = await response.json();
+            if (response.ok && result.message === 'File and information submitted successfully') {
+       
+              navigate('/orderSuccess');
+            } else {
+              throw new Error('Submission failed');
+            }
+          } catch (error) {
+            console.error('Error submitting form', error);
+            alert('Error submitting payment information and address.');
+          }
+        
+      };
 
     return (
         <div style={{ width: '80%', margin: 'auto', marginTop: '20px' }}>
+            <form onSubmit={handleSubmit}>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={7} sx={{ paddingRight: '20px' }}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'rgb(23, 55, 84)', textAlign: 'left' }}>Your Address</Typography>
@@ -109,7 +154,7 @@ const CheckoutPage = () => {
                     <Divider sx={{ my: 2 }} />
 
                     <Typography variant="h6" sx={{ fontWeight: 'bold', color: 'rgb(23, 55, 84)', textAlign: 'left' }}>Add Payment</Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box noValidate sx={{ mt: 1 }}>
                         <Grid container spacing={2}>
                             <Grid item xs={12} sm={12}>
                                 <TextField fullWidth label="Cardholder Name" value={cardHolder} onChange={(e) => setCardHolder(e.target.value)} size="small" />
@@ -139,6 +184,7 @@ const CheckoutPage = () => {
                     </Button>
                 </Grid >
             </Grid >
+            </form>
         </div >
     );
 };
