@@ -12,6 +12,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CloseIcon from "@mui/icons-material/Close";
+import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
+import { Link } from 'react-router-dom';
 
 const UserPanel = ({ isOpen, onClose, userName }) => {
   if (!isOpen) {
@@ -31,6 +33,7 @@ const UserPanel = ({ isOpen, onClose, userName }) => {
       window.location.reload();
     }, 100);
   };
+
 
   if (!isOpen) {
     return null;
@@ -55,6 +58,12 @@ const UserPanel = ({ isOpen, onClose, userName }) => {
                 <HomeIcon color="action" />
               </ListItemIcon>
               <ListItemText primary="Saved Addresses" />
+            </ListItem>
+            <ListItem button component={Link} to="/healthVault">
+              <ListItemIcon>
+                <LocalHospitalIcon  color="action" />
+              </ListItemIcon>
+              <ListItemText primary="Health Vault" />
             </ListItem>
             <Divider />
             <ListItem button onClick={handleLogout}>
