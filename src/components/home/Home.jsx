@@ -5,6 +5,7 @@ import FAQ from "../FAQ/FAQ";
 import LoginModal from "../registration/loginModal/LoginModal";
 import Carousel from "react-material-ui-carousel";
 import { useUser } from "../../context/UserContext";
+import { Card, CardContent } from "@mui/material";
 
 const services = [
   {
@@ -72,50 +73,54 @@ const Home = () => {
       </section>
 
       {/* Services Section */}
-      <section className="services-section">
-        <h2>Our Services</h2>
-        {/* <div className="services-list"> */}
-        <Carousel>
-          {reducedServices.map((item, index) => (
-            <div style={{ display: "flex", margin: 0 }} key={index}>
-              {item.map((service, index) => (
-                <div
-                  key={service.title}
-                  style={{ background: "white", flex: 1 }}
-                >
-                  <h3
-                    aria-label={service.title}
-                    style={{ margin: "0.5rem auto" }}
+      <Card>
+        <CardContent style={{ background: "#f4f4f4" }}>
+          {/* <div className="services-list"> */}
+          <h2>Our Services</h2>
+          <Carousel>
+            {reducedServices.map((item, index) => (
+              <div style={{ display: "flex", margin: 0 }} key={index}>
+                {item.map((service, index) => (
+                  <div
+                    key={service.title}
+                    style={{ background: "white", flex: 1 }}
                   >
-                    {service.title}
-                  </h3>
-                  <img
-                    src={service.img}
-                    height={200}
-                    width={250}
-                    alt={"service-icn"}
-                  />
-                  <p
-                    arial-label={service.description}
-                    style={{
-                      width: "80%",
-                      textAlign: "center",
-                      margin: "0.5rem auto",
-                    }}
-                  >
-                    {service.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          ))}
-        </Carousel>
-        {/* </div> */}
-      </section>
+                    <h3
+                      aria-label={service.title}
+                      style={{ margin: "0.5rem auto" }}
+                    >
+                      {service.title}
+                    </h3>
+                    <img
+                      src={service.img}
+                      height={200}
+                      width={250}
+                      alt={"service-icn"}
+                    />
+                    <p
+                      arial-label={service.description}
+                      style={{
+                        width: "80%",
+                        textAlign: "center",
+                        margin: "0.5rem auto",
+                      }}
+                    >
+                      {service.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </Carousel>
+          {/* </div> */}
+        </CardContent>
+      </Card>
       <FAQ />
-      <footer className="footer-section">
-        <p>&copy; 2024 MediConnect. All rights reserved.</p>
-      </footer>
+      <Card>
+        <CardContent className="footer-section">
+          <p>&copy; 2024 MediConnect. All rights reserved.</p>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -178,20 +178,10 @@ const Doctors = (props) => {
       <Grid
         container
         alignItems="center"
-        height="80vh"
         width="80%"
-        style={{ margin: "0 auto" }}
+        style={{ margin: "0 auto", padding: "1rem 0" }}
       >
         <Grid item xs={12}>
-          <div style={{ margin: "1rem" }}>
-            <Typography fontSize="2rem">
-              Select date and time for your consultation
-            </Typography>
-            <Typography fontSize="1rem" color="GrayText">
-              Pick the perfect time for your health consultation with Dr.{" "}
-              {doctorDetails.name}, and let us take care of the rest.
-            </Typography>
-          </div>
           <Grid item xs={12}>
             <Grid container>
               <Card sx={{ width: "100%" }}>
@@ -229,35 +219,53 @@ const Doctors = (props) => {
               </Card>
             </Grid>
           </Grid>
+          <Grid item xs={12} style={{ margin: "1.5rem 0" }}>
+            <div style={{ background: "#05B8A3", padding: "1rem" }}>
+              <Typography fontSize="2rem" color="#033759">
+                {"Select date and time for your consultation".toUpperCase()}
+              </Typography>
+              <Typography fontSize="1rem" color="#fff">
+                Pick the perfect time for your health consultation with Dr.{" "}
+                {doctorDetails.name}, and let us take care of the rest.
+              </Typography>
+            </div>
+          </Grid>
           <Grid item xs={12}>
-            <Grid container>
-              <Grid item xs={4} padding={2}>
-                <Typography fontSize="1.25rem">Patient details</Typography>
-                <br />
-                <Typography fontSize="1rem">
-                  Patient name: Dummy patient
-                  <br />
-                  Phone number: +1-(XXX)-XXX-XXXX
-                  <br />
-                  Email: xyz@abcd.com
-                </Typography>
+            <Grid container xs={12}>
+              <Grid item xs={4}>
+                <Card>
+                  <CardContent>
+                    <Typography fontSize="1.25rem">Patient details</Typography>
+                    <br />
+                    <Typography fontSize="1rem">
+                      Patient name: Dummy patient
+                      <br />
+                      Phone number: +1-(XXX)-XXX-XXXX
+                      <br />
+                      Email: xyz@abcd.com
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Grid>
-              <Grid item xs={8} padding={2}>
+              <Grid item xs={8}>
                 <Grid
                   container
-                  direction="column"
                   rowSpacing={2}
                   marginTop={2}
                   marginBottom={2}
+                  paddingLeft={2}
                 >
-                  <Grid item>
+                  <Grid item xs={12}>
                     <FormControl fullWidth>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker
                           disablePast
                           label="Select a date and time of your choice"
                           onChange={(value) =>
-                            updateForm("datetime", dayjs(value).toISOString() || null)
+                            updateForm(
+                              "datetime",
+                              dayjs(value).toISOString() || null
+                            )
                           }
                           slotProps={{
                             actionBar: {
@@ -269,24 +277,20 @@ const Doctors = (props) => {
                     </FormControl>
                   </Grid>
 
-                  <Grid item>
-                    <Grid container spacing={2}>
-                      <Grid item xs={12} md={12}>
-                        <Button
-                          type="button"
-                          color="success"
-                          variant="outlined"
-                          disabled={!formValues.datetime}
-                          fullWidth
-                          onClick={() => {
-                            addToStorage({ ...doctorDetails, ...formValues });
-                            setFormAsCompleted(() => true);
-                          }}
-                        >
-                          Book consultation
-                        </Button>
-                      </Grid>
-                    </Grid>
+                  <Grid item xs={12} md={12}>
+                    <Button
+                      type="button"
+                      color="success"
+                      variant="outlined"
+                      disabled={!formValues.datetime}
+                      fullWidth
+                      onClick={() => {
+                        addToStorage({ ...doctorDetails, ...formValues });
+                        setFormAsCompleted(() => true);
+                      }}
+                    >
+                      Book consultation
+                    </Button>
                   </Grid>
                 </Grid>
               </Grid>

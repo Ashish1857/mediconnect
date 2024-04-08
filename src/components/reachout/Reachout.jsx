@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Reachout.css";
+import { Button } from "@mui/material";
 
 export const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -34,7 +35,7 @@ export const ContactUs = () => {
 
   return (
     <div className="contact-us-container">
-      <h1>Contact Us</h1>
+      <h1 style={{ margin: 0 }}>Contact Us</h1>
       {submitted ? (
         <div className="success-message">
           Thank you! Your message has been sent.
@@ -64,9 +65,14 @@ export const ContactUs = () => {
             placeholder="Your Message"
             required
           />
-          <button type="submit" disabled={submitting}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={submitting}
+          >
             {submitting ? "Sending..." : "Send Message"}
-          </button>
+          </Button>
           {error && <div className="error-message">{error}</div>}
         </form>
       )}
