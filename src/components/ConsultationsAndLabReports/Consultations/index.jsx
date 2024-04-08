@@ -18,13 +18,12 @@ const Consultations = (props) => {
     <>
       <Grid
         container
-        alignItems="center"
         width="80%"
-        style={{ margin: "0 auto", padding: "1rem 0" }}
+        style={{ margin: "0 auto", padding: "1rem 0", textAlign: "left" }}
       >
         <Grid item>
           <header>
-            <Typography fontSize="2rem" sx={{ color: "#05B8A3" }}>
+            <Typography fontSize="2rem" fontWeight={300}>
               Find your preferred doctor
             </Typography>
             <Typography fontSize="1rem" color="GrayText">
@@ -32,6 +31,7 @@ const Consultations = (props) => {
               specialists, select your preferred doctor, and book a time that
               suits your schedule, all in just a few clicks.
             </Typography>
+            <div className="title-highlighter" />
           </header>
           <br />
           <ConsultationAndReportsLayout
@@ -45,8 +45,7 @@ const Consultations = (props) => {
             topOptions={TOP_DOCTORS}
             optionCardKey="doctor"
           />
-          <br />
-          <hr />
+          {/* <div className="my-divider" style={{ marginTop: "32px" }} /> */}
         </Grid>
         <TopOptions topOptions={TOP_DOCTORS} optionCardKey="doctor" />
       </Grid>

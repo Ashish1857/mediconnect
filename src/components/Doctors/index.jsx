@@ -219,23 +219,24 @@ const Doctors = (props) => {
               </Card>
             </Grid>
           </Grid>
-          <Grid item xs={12} style={{ margin: "1.5rem 0" }}>
-            <div style={{ background: "#05B8A3", padding: "1rem" }}>
-              <Typography fontSize="2rem" color="#033759">
-                {"Select date and time for your consultation".toUpperCase()}
-              </Typography>
-              <Typography fontSize="1rem" color="#fff">
-                Pick the perfect time for your health consultation with Dr.{" "}
-                {doctorDetails.name}, and let us take care of the rest.
-              </Typography>
-            </div>
+          <Grid item xs={12} style={{ margin: "1.5rem 0" }} textAlign="left">
+            <Typography fontSize="2rem">
+              Select date and time for your consultation
+            </Typography>
+            <Typography fontSize="1rem" color="GrayText">
+              Pick the perfect time for your health consultation with Dr.{" "}
+              {doctorDetails.name}, and let us take care of the rest.
+            </Typography>
+            <div className="title-highlighter" />
           </Grid>
           <Grid item xs={12}>
             <Grid container xs={12}>
               <Grid item xs={4}>
                 <Card>
                   <CardContent>
-                    <Typography fontSize="1.25rem">Patient details</Typography>
+                    <Typography fontSize="1.25rem" fontWeight={400}>
+                      Patient details
+                    </Typography>
                     <br />
                     <Typography fontSize="1rem">
                       Patient name: Dummy patient

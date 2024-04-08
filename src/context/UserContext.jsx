@@ -7,6 +7,7 @@ export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [areUserDetailsLoaded, setUserDetailsLoadedState] = useState(false);
 
   const login = (userData) => {
     setUser(userData);
@@ -17,15 +18,20 @@ export const UserProvider = ({ children }) => {
   };
 
   useEffect(() => {
+    setUserDetailsLoadedState(() => false);
     console.log("in context api");
     let mobileNumber = localStorage.getItem("mobileNumber");
     if (mobileNumber) {
       isRegisteredUser(mobileNumber).then((data) => {
+        setUserDetailsLoadedState(() => true);
         setUser(data);
       });
     }
+    setUserDetailsLoadedState(() => true);
   }, []);
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, areUserDetailsLoaded }}>
+      {children}
+    </UserContext.Provider>
   );
 };

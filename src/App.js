@@ -18,8 +18,10 @@ import Header from "./components/shared/Header";
 import { UserProvider } from "./context/UserContext";
 import { ContactUs } from "./components/reachout/Reachout";
 import { HealthVault } from "./components/orderMedicine/HealthVault";
+import Profile from "./components/Profile";
 
 function App() {
+
   const [showLogin, setShowLogin] = useState(false);
   const handleShowLogin = () => {
     document.body.style.position = "fixed";
@@ -62,6 +64,7 @@ function App() {
                   <Route path="/contactUs" element={<ContactUs />} />
                   <Route path="/orderSuccess" element={<OrderSuccess />} />
                   <Route path="/healthVault" element={<HealthVault />} />
+                  <Route path="/profile" element={<Profile />} />
                 </Routes>
               </div>
             </Router>

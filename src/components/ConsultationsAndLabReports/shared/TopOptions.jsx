@@ -16,25 +16,12 @@ const TopOptions = (props) => {
 
   return (
     <Grid container>
-      <Grid
-        container
-        marginTop={4}
-        justifyContent="center"
-        style={{
-          background: "#05B8A3",
-          padding: "1rem",
-          color: "#000",        
-        }}
-      >
-        <Grid item>
-          <Typography fontSize="1.5rem">
-            {props.isLabtestUI
-              ? "Popular lab tests".toUpperCase()
-              : "Our top doctors".toUpperCase()}
-          </Typography>
-        </Grid>
+      <Grid item marginTop={4}>
+        <Typography fontSize="1.5rem" fontWeight={300}>
+          {props.isLabtestUI ? "Some popular lab tests" : "Some of our top doctors"}
+        </Typography>
+        <div className="title-highlighter" />
       </Grid>
-
       <Grid item xs={12}>
         <Grid
           container
@@ -63,7 +50,7 @@ const TopOptions = (props) => {
                               justifyContent="center"
                               alignItems="center"
                             >
-                              <Avatar sx={{ bgcolor: "#05B8A3" }}>
+                              <Avatar sx={{ bgcolor: "#033759" }}>
                                 <Vaccines />
                               </Avatar>
                             </Grid>
@@ -106,7 +93,7 @@ const TopOptions = (props) => {
                             alignItems="center"
                             display="flex"
                           >
-                            <Avatar sx={{ bgcolor: "#05B8A3" }}>
+                            <Avatar sx={{ bgcolor: "lightgrey" }}>
                               <Person />
                             </Avatar>
                           </Grid>

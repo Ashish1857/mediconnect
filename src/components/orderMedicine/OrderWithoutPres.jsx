@@ -47,15 +47,15 @@ export const OrderWithoutPres = () => {
 
   return (
     <div style={{ width: "80%", margin: "auto" }}>
-      <Typography fontSize="2rem" sx={{ color: "#05B8A3" }}>
+      <Typography fontSize="2rem" textAlign="left">
         Order your medicines
       </Typography>
-      <Typography fontSize="1rem" color="GrayText">
+      <Typography fontSize="1rem" color="GrayText" textAlign="left">
         Schedule a medical appointment with ease. Browse top-rated specialists,
         select your preferred doctor, and book a time that suits your schedule,
         all in just a few clicks.
       </Typography>
-
+      <div className="title-highlighter"></div>
       <br />
 
       <Grid
@@ -76,7 +76,7 @@ export const OrderWithoutPres = () => {
             renderInput={(params) => (
               <TextField
                 {...params}
-                label="Search medicine"
+                label="Search a medicine"
                 variant="outlined"
                 fullWidth
               />
@@ -89,7 +89,10 @@ export const OrderWithoutPres = () => {
         </Grid>
       </Grid>
 
-      <hr />
+      <Typography fontSize={"1.5rem"} textAlign="left">
+        {inputValue ? "Search results" : "Some options"}
+      </Typography>
+      <div className="title-highlighter"></div>
       <br />
 
       <Grid container spacing={3}>
