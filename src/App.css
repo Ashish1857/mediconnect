@@ -1,6 +1,11 @@
 .App {
   text-align: center;
   margin: auto;
+
+  .navbar {
+    width: 80%;
+    margin: auto;
+  }
 }
 
 .App-logo {
@@ -33,36 +38,61 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
-
-/* This applies to the whole body of the page, setting the font and background if needed */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f4f4f4; /* Example background color */
+  background: #f4f4f4;
 }
 
-/* This centers the content vertically and horizontally */
 .container {
   line-height: 1.5;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; /* This ensures that the container will be at least the height of the viewport */
+  min-height: 100vh;
 }
 
-/* Inside the container, you can have a content area where your actual content goes */
 .content {
-  width: 90%; /* or max-width if you want to limit it */
-  max-width: 1200px; /* This ensures that the content area does not stretch too wide on larger screens */
-  margin: auto; /* This applies automatic margin to center your content area */
-  background: #fff; 
+  width: 90%;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: auto;
+  background: #fff;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Optional: adds a subtle shadow around the content area */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.body-no-scroll {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+.contentscreens {
+  margin: 20px;
+}
+
+.linkcontent a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.my-divider {
+  width: 75%;
+  height: 1px;
+  background-color: grey;
+}
+
+.title-highlighter {
+  width: 80px;
+  height: 4px;
+  background-color: #033759;
+  margin: 0.5rem 0;
+}

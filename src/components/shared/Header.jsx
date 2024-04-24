@@ -1,32 +1,37 @@
 import React, { useState } from "react";
-import Navbar from "./NavBar";
+import Navbar from "./navbar/NavBar";
 
 const Tabs = [
   {
-    title: "Book Consult",
+    title: "Consult",
     isActive: false,
+    path: "/consultations",
   },
   {
-    title: "Order Medicine",
+    title: "Medicine",
     isActive: false,
+    path: "/medicine",
   },
   {
     title: "Lab Test",
     isActive: false,
+    path: "/labreports",
   },
   {
     title: "Contact Us",
     isActive: false,
+    path: "/contactUs",
   },
 ];
 
 const Header = (props) => {
   const { handleShowLogin } = props;
-  const [activeTab, setActiveTab] = useState(null);
+
+  const [tabs, setTabs] = useState(Tabs);
 
   return (
     <div>
-      <Navbar Tabs={Tabs} handleShowLogin={handleShowLogin} />
+      <Navbar tabs={tabs} setTabs={setTabs} handleShowLogin={handleShowLogin} />
     </div>
   );
 };

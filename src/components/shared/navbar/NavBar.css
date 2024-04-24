@@ -1,0 +1,79 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFFFFF;
+  max-height: 80px;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-logo img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.navbar-logo h1 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.navbar-navigation {
+  overflow: hidden;
+}
+
+.navbar-navigation ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-navigation ul li {
+  padding: 0 20px;
+  margin: 0;
+}
+
+.navbar-navigation ul li a {
+  display: block;
+  text-decoration: none;
+  color: #333 !important;
+  font-size: 16px !important;
+}
+
+.navbar-login{
+display: flex;
+align-items: center;
+
+}
+
+.navbar-login button {
+  background-color: #333333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.user-name {
+  margin-right: 20px;
+}
+
+.navbar-login button:hover {
+  background-color: #232423;
+}
+
+.navbar-navigation .active {
+  font-weight: bold;
+  box-shadow: 0 2px 0 #000; /* This will create a shadow line under the active tab */
+}
+.user-name-wrapper{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}

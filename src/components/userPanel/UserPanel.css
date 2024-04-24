@@ -1,0 +1,58 @@
+.user-panel-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-end;
+    z-index: 10;
+  }
+  
+  .user-panel {
+    background: white;
+    width: 250px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .close-user-panel {
+    align-self: flex-end;
+    cursor: pointer;
+    /* Additional styles for your close button */
+  }
+  
+  .user-panel-header {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  .user-panel-header .faUserCircle {
+    margin-right: 10px;
+  }
+  
+  .user-panel-options {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .user-panel-options li {
+    cursor: pointer;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-panel-options li .faUserCircle,
+  .user-panel-options li .faAddressCard,
+  .user-panel-options li .faSignOutAlt {
+    margin-right: 10px;
+  }
+  

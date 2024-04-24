@@ -1,0 +1,57 @@
+.home-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .welcome-section {
+    padding: 50px 0;
+  }
+  
+  .services-section {
+    padding: 10px;
+    margin: 0 auto;
+    background-color: #f4f4f4;
+  }
+  
+  .services-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .service {
+    width: 27%;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: white;
+    margin: 10px;
+    p {
+        line-height: 1.5;
+    }
+  }
+  
+  .testimonials-section {
+    padding: 50px 0;
+  }
+  
+  .footer-section {
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+  }
+
+ .body-no-scroll {
+    overflow: hidden;
+    /* Optional: to make sure the page stays at the current scroll position */
+    position: fixed; 
+    width: 100%;
+  }
+  
+  .flag-dropdown.open .flag-dropdown{
+    margin-top: 44px;
+  }
+  .greeting{
+    font-size: 40px;
+  }
