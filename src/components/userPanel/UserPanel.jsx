@@ -12,15 +12,17 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import HomeIcon from "@mui/icons-material/Home";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import CloseIcon from "@mui/icons-material/Close";
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import { Link } from 'react-router-dom';
+import LocalHospitalIcon from "@mui/icons-material/LocalHospital";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserPanel = ({ isOpen, onClose, userName }) => {
+  const navigate = useNavigate();
+
   if (!isOpen) {
     return null;
   }
   const handleMyProfile = () => {
-    console.log("Navigating to My Profile");
+    navigate("/profile");
   };
 
   const handleSavedAddresses = () => {
@@ -34,7 +36,6 @@ const UserPanel = ({ isOpen, onClose, userName }) => {
     }, 100);
   };
 
-
   if (!isOpen) {
     return null;
   }
@@ -47,26 +48,26 @@ const UserPanel = ({ isOpen, onClose, userName }) => {
         </IconButton>
         <div className="user-panel-content">
           <List component="nav">
-            <ListItem button onClick={handleMyProfile}>
+            <ListItem button={true} onClick={handleMyProfile}>
               <ListItemIcon>
                 <AccountCircleIcon color="action" />
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </ListItem>
-            <ListItem button onClick={handleSavedAddresses}>
+            <ListItem button={true} onClick={handleSavedAddresses}>
               <ListItemIcon>
                 <HomeIcon color="action" />
               </ListItemIcon>
               <ListItemText primary="Saved Addresses" />
             </ListItem>
-            <ListItem button component={Link} to="/healthVault">
+            <ListItem button={true} component={Link} to="/healthVault">
               <ListItemIcon>
-                <LocalHospitalIcon  color="action" />
+                <LocalHospitalIcon color="action" />
               </ListItemIcon>
               <ListItemText primary="Health Vault" />
             </ListItem>
             <Divider />
-            <ListItem button onClick={handleLogout}>
+            <ListItem button={true} onClick={handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon color="action" />
               </ListItemIcon>

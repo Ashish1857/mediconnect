@@ -154,62 +154,76 @@ const BookReport = (props) => {
       <Grid
         container
         alignItems="center"
-        height="80vh"
+        // height="80vh"
         width="80%"
         style={{ margin: "0 auto" }}
       >
         <Grid item xs={12}>
-          <div style={{ margin: "1rem" }}>
+          <Card>
+            <CardContent>
+              <Grid container>
+                <Grid item xs={3} justifyContent="center" alignItems="center">
+                  <Avatar
+                    sx={{
+                      bgcolor: "#033759",
+                      width: "100px",
+                      height: "100px",
+                      margin: "0 auto",
+                    }}
+                  >
+                    <Vaccines />
+                  </Avatar>
+                </Grid>
+                <Grid
+                  item
+                  xs={9}
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <Typography fontSize="1.5rem" align="left" fontWeight={300}>
+                    Test name: {testDetails.name}
+                  </Typography>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={12}>
+          <div style={{ margin: "1.5rem 0", textAlign: "left" }}>
             <Typography fontSize="2rem">Book your lab test</Typography>
             <Typography fontSize="1rem" color="GrayText">
               Easily manage your health by booking laboratory tests with our
               certified labs—quick, convenient, and reliable
             </Typography>
+            <div className="title-highlighter"></div>
           </div>
           <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid container>
-                  <Grid item xs={3} justifyContent="center" alignItems="center">
-                    <Avatar
-                      sx={{
-                        bgcolor: "#033759",
-                        width: "100px",
-                        height: "100px",
-                        margin: "0 auto",
-                      }}
-                    >
-                      <Vaccines />
-                    </Avatar>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={9}
-                    sx={{ display: "flex", alignItems: "center" }}
-                  >
-                    <Typography variant="body1" align="left">
-                      Test name: {testDetails.name}
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={12}>
             <Grid container>
-              <Grid item xs={4} padding={2}>
-                <Typography fontSize="1.25rem">Patient details</Typography>
-                <br />
-                <Typography fontSize="1rem">
-                  Patient name: Dummy patient
-                  <br />
-                  Phone number: +1-(XXX)-XXX-XXXX
-                  <br />
-                  Email: xyz@abcd.com
-                </Typography>
+              <Grid item xs={4}>
+                <Card>
+                  <CardContent>
+                    <Typography fontSize="1.25rem" fontWeight={400}>
+                      Patient details
+                    </Typography>
+                    <br />
+                    <Typography fontSize="1rem">
+                      Patient name: Dummy patient
+                      <br />
+                      Phone number: +1-(XXX)-XXX-XXXX
+                      <br />
+                      Email: xyz@abcd.com
+                    </Typography>
+                  </CardContent>
+                </Card>
               </Grid>
               <Grid item xs={8}>
-                <Grid container direction="column" padding={2} rowSpacing={2}>
+                <Grid
+                  container
+                  direction="column"
+                  rowSpacing={2}
+                  marginTop={2}
+                  marginBottom={2}
+                  paddingLeft={2}
+                >
                   <Grid item>
                     <FormControl fullWidth>
                       <LocalizationProvider dateAdapter={AdapterDayjs}>

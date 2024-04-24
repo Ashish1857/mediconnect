@@ -11,18 +11,19 @@ const Consultations = (props) => {
     <Grid
       container
       alignItems="center"
-      justifyContent="center"
-      height="80vh"
       width="80%"
-      style={{ margin: "0 auto" }}
+      style={{ margin: "0 auto", padding: "1rem 0" }}
     >
       <Grid item width="100%">
-        <header>
-          <Typography fontSize="2rem">Book your lab tests</Typography>
+        <header style={{ textAlign: "left" }}>
+          <Typography fontSize="2rem" fontWeight={300}>
+            Book your lab tests
+          </Typography>
           <Typography fontSize="1rem" color="GrayText">
             Easily manage your health by booking laboratory tests with our
             certified labs—quick, convenient, and reliable
           </Typography>
+          <div className="title-highlighter"></div>
         </header>
         <br />
         <ConsultationAndReportsLayout

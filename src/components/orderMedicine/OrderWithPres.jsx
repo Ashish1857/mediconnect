@@ -1,22 +1,31 @@
-import React, { useState} from 'react';
-import { Container, Grid, Typography, Button, TextField, Box, Paper, IconButton, styled } from '@mui/material';
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useNavigate } from 'react-router-dom';
-import { useCart } from './CartContext';
-import BackButton from './BackButton';
+import React, { useState } from "react";
+import {
+  Container,
+  Grid,
+  Typography,
+  Button,
+  TextField,
+  Box,
+  Paper,
+  IconButton,
+  styled,
+} from "@mui/material";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
+import { useCart } from "./CartContext";
+import BackButton from "./BackButton";
 
-const Input = styled('input')({
-  display: 'none',
+const Input = styled("input")({
+  display: "none",
 });
 
 export function OrderWithPres() {
-
   const { addToCart } = useCart();
   const navigate = useNavigate();
 
-  const [prescriptionNumber, setPrescriptionNumber] = useState('');
-  const [name, setName] = useState('');
+  const [prescriptionNumber, setPrescriptionNumber] = useState("");
+  const [name, setName] = useState("");
   const [file, setFile] = useState(null);
 
   const handleFormSubmit = async (event) => {
@@ -24,30 +33,27 @@ export function OrderWithPres() {
     // Existing form handling logic
 
     try {
-      const response = await fetch('https://XavierDai.github.io/prescriptions.json');
+      const response = await fetch(
+        "https://XavierDai.github.io/prescriptions.json"
+      );
       const prescriptions = await response.json();
-      const prescription = prescriptions.find(p => p.prescription_no === prescriptionNumber);
+      const prescription = prescriptions.find(
+        (p) => p.prescription_no === prescriptionNumber
+      );
 
       if (prescription) {
-
-        prescription.content.forEach(id => {
-
+        prescription.content.forEach((id) => {
           console.log(id);
           addToCart(id);
-
-
         });
-        navigate('/checkout');
+        navigate("/checkout");
       } else {
-        console.log('Prescription not found');
+        console.log("Prescription not found");
       }
     } catch (error) {
-      console.error('Failed to fetch prescription data:', error);
+      console.error("Failed to fetch prescription data:", error);
     }
   };
-
-
-
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -70,23 +76,37 @@ export function OrderWithPres() {
 
   const handleFileDelete = () => {
     setFile(null);
-    document.getElementById('file-upload').value = ''; // Reset file input
+    document.getElementById("file-upload").value = ""; // Reset file input
   };
 
   return (
-    <Container maxWidth="lg" sx={{
-      height: 'calc(100vh - 90px)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      mt: '10vh',
-      width:'80%',
-    }}>
-      <Typography variant="h5" component="h5" gutterBottom align="center" sx={{ mb: 4 }}>
+    <Container
+      maxWidth="lg"
+      sx={{
+        height: "calc(100vh - 90px)",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        mt: "10vh",
+        width: "80%",
+      }}
+    >
+      <Typography
+        variant="h5"
+        component="h5"
+        gutterBottom
+        align="center"
+        sx={{ mb: 4 }}
+      >
         Please upload your prescription:
       </Typography>
 
-      <Grid container spacing={3} justifyContent="center" alignItems="flex-start">
+      <Grid
+        container
+        spacing={3}
+        justifyContent="center"
+        alignItems="flex-start"
+      >
         {/* 左边部分 - 处方信息 */}
         <Grid item xs={12} md={5}>
           <Typography variant="h6" gutterBottom>
@@ -131,7 +151,6 @@ export function OrderWithPres() {
           </Typography>
         </Grid>
 
-
         <Grid item xs={12} md={5}>
           <Typography variant="h6" gutterBottom>
             Upload document
@@ -139,22 +158,22 @@ export function OrderWithPres() {
           <Paper
             variant="outlined"
             sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '20px',
-              minHeight: '150px',
-              backgroundColor: '#f5f5f5',
-              cursor: 'pointer',
-              '&:hover': {
-                backgroundColor: '#e8e8e8',
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "20px",
+              minHeight: "150px",
+              backgroundColor: "#f5f5f5",
+              cursor: "pointer",
+              "&:hover": {
+                backgroundColor: "#e8e8e8",
               },
-              marginTop: '20px',
+              marginTop: "20px",
             }}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            onClick={() => document.getElementById('file-upload').click()}
+            onClick={() => document.getElementById("file-upload").click()}
           >
             <CloudUploadIcon sx={{ fontSize: 60, mb: 2 }} />
             <Typography>Drag docs here or click here to upload</Typography>
@@ -167,10 +186,15 @@ export function OrderWithPres() {
             onChange={handleFileChange}
           />
           {file && (
-            <Box sx={{ mt: 2, textAlign: 'center' }}>
+            <Box sx={{ mt: 2, textAlign: "center" }}>
               <Typography variant="body1">{file.name}</Typography>
               <Box sx={{ mt: 2 }}>
-                <Button variant="contained" color="primary" onClick={handleFormSubmit} sx={{ mr: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleFormSubmit}
+                  sx={{ mr: 2 }}
+                >
                   Submit
                 </Button>
                 <IconButton color="error" onClick={handleFileDelete}>
@@ -182,11 +206,8 @@ export function OrderWithPres() {
         </Grid>
       </Grid>
       <Grid container justifyContent="flex-end">
-                <BackButton />
-                
-
-            </Grid>
-
+        <BackButton />
+      </Grid>
     </Container>
   );
 }

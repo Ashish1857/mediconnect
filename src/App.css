@@ -83,3 +83,16 @@ body {
   text-decoration: inherit;
   color: inherit;
 }
+
+.my-divider {
+  width: 75%;
+  height: 1px;
+  background-color: grey;
+}
+
+.title-highlighter {
+  width: 80px;
+  height: 4px;
+  background-color: #033759;
+  margin: 0.5rem 0;
+}

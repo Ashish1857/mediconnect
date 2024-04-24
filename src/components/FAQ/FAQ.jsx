@@ -1,5 +1,6 @@
 import React from "react";
 import "./FAQ.css";
+import { Card, CardContent } from "@mui/material";
 const FAQ = () => {
   const faqs = [
     {
@@ -20,17 +21,19 @@ const FAQ = () => {
   ];
 
   return (
-    <div className="faq-container">
-      <h2>Frequently Asked Questions</h2>
-      <ul>
-        {faqs.map((faq, index) => (
-          <li key={index}>
-            <h3>{faq.question}</h3>
-            <p>{faq.answer}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card className="faq-container">
+      <CardContent>
+        <h2>Frequently Asked Questions</h2>
+        <ul>
+          {faqs.map((faq, index) => (
+            <li key={index}>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </li>
+          ))}
+        </ul>
+      </CardContent>
+    </Card>
   );
 };
 

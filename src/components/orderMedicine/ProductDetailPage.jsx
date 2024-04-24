@@ -9,22 +9,26 @@ const ProductDetailPage = () => {
     const location = useLocation();
 
 
-    const [drugs, setDrugs] = useState([]);
-    useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const drugId = queryParams.get('drug');
-        const fetchProductData = async () => {
-            try {
-                const response = await fetch('https://XavierDai.github.io/medicine.json');
-                const data = await response.json();
-                const matchingProduct = data.find(product => product.id.toString() === drugId);
-                setDrugs(matchingProduct);
-            } catch (error) {
-                console.error('Failed to fetch product data:', error);
-            }
-        };
-        fetchProductData();
-    }, [location]);
+  const [drugs, setDrugs] = useState([]);
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const drugId = queryParams.get("drug");
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch(
+          "https://XavierDai.github.io/medicine.json"
+        );
+        const data = await response.json();
+        const matchingProduct = data.find(
+          (product) => product.id.toString() === drugId
+        );
+        setDrugs(matchingProduct);
+      } catch (error) {
+        console.error("Failed to fetch product data:", error);
+      }
+    };
+    fetchProductData();
+  }, [location]);
 
 
     const inCart = cartItems.find(item => item.id === drugs.id);
