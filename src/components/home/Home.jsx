@@ -5,7 +5,7 @@ import FAQ from "../FAQ/FAQ";
 import LoginModal from "../registration/loginModal/LoginModal";
 import Carousel from "react-material-ui-carousel";
 import { useUser } from "../../context/UserContext";
-import { Card, CardContent } from "@mui/material";
+import { Button, Card, CardContent } from "@mui/material";
 
 const services = [
   {
@@ -23,11 +23,11 @@ const services = [
     description: "Book lab tests and get results online quickly.",
     img: "/lab-test.png",
   },
-  {
-    title: "Track Health",
-    description: "Save your health data to track your BMI.",
-    img: "/trackHealth.png",
-  },
+  // {
+  //   title: "Track Health",
+  //   description: "Save your health data to track your BMI.",
+  //   img: "/trackHealth.png",
+  // },
 
   {
     title: "Health Vault",
@@ -70,6 +70,14 @@ const Home = () => {
           Your health matters. Connect with the best medical professionals and
           services.
         </p>
+        <div>
+          <h3>Facing an emergency?</h3>
+          <a href="tel:911">
+            <Button variant="outlined" color="error">
+              Get urgent help!
+            </Button>
+          </a>
+        </div>
       </section>
 
       {/* Services Section */}
